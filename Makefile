@@ -5,11 +5,11 @@ ODIR	=	obj
 OBJS	=	$(addprefix $(ODIR)/,$(SRCS:.c=.o))
 
 IDIR	=	inc
-INC		=	minishell.h
+INC		=	$(shell ls $(IDIR))
 INCLUDE	=	$(addprefix $(IDIR)/,$(INC))
 
-ILIB	=	-I$(shell brew --prefix readline)/include
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline
+ILIB	=	-I$(shell brew --prefix readline)/include -Ilibft/inc
+SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft
 
 NAME	=	minishell
 
@@ -37,14 +37,18 @@ $(ODIR)/%.o: $(SDIR)/%.c $(INCLUDE)
 	@$(CC) $(CFLAGS) $(ILIB) -I$(IDIR) -c $< -o $@
 
 $(NAME): $(OBJS)
+	@echo "$(BLUE)Creating  $(CYAN)libft$(CLEAR)"
+	@make -C libft
 	@echo "$(BLUE)Building  $(CYAN)$(NAME)$(CLEAR)"
 	@$(CC) $(OBJS) $(SLIB) -o $(NAME)
 
 clean:
+	@make -C libft clean
 	@echo "$(RED)Deleting $(PURPLE)objects$(CLEAR)"
 	@$(RM) $(ODIR)
 
 fclean:	clean
+	@make -C libft fclean
 	@echo "$(RED)Deleting $(YELLOW)$(NAME)$(CLEAR)"
 	@$(RM) $(NAME)
 
