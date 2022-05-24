@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/05/24 16:22:26 by oaizab           ###   ########.fr       */
+/*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
+/*   Updated: 2022/05/24 17:58:59 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <sys/stat.h>
-# include <string.h>
+int	main(void)
+{
+	char		*cmd;
+	t_toklist	*toklist;
+	t_token		*tokptr;
 
-# include "utils.h"
-# include "libft.h"
-# include "lexer.h"
-
-char	*read_cmd(void);
-
-#endif
+	while (1)
+	{
+		cmd = read_cmd();
+		toklist = ft_lexer(cmd);
+		// printf("%p\n", toklist);
+		while (toklist != NULL)
+		{
+			tokptr = toklist->content;
+			printf("[%s] ", tokptr->tok);
+			toklist = toklist->next;
+		}
+		printf("\n");
+		free(cmd);
+	}
+	return (0);
+}
