@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:16:39 by oaizab            #+#    #+#             */
-/*   Updated: 2022/05/24 17:56:46 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/05/25 15:20:02 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef enum e_char_type
 	CHAR_APPEND = -5,
 	CHAR_QUOTE = '\'',
 	CHAR_DQUOTE = '"',
-	CHAR_SPACE = ' '
+	CHAR_SPACE = ' ',
+	CHAR_OPAR = '(',
+	CHAR_CPAR = ')'
 }			t_char_type;
 
 typedef enum e_state

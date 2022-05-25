@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:39:15 by oaizab            #+#    #+#             */
-/*   Updated: 2022/05/24 17:58:09 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/05/25 15:21:54 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_char_type	get_char_type(const char *c)
 		return (CHAR_DQUOTE);
 	if (c[0] == ' ')
 		return (CHAR_SPACE);
+	if (c[0] == '(')
+		return (CHAR_OPAR);
+	if (c[0] == ')')
+		return (CHAR_CPAR);
 	return (CHAR_DEFAULT);
 }
 
@@ -163,6 +167,18 @@ t_toklist	*ft_lexer(const char *cmd)
 				token_str = ft_append_char(token_str, '>');
 				add_token(&toklist, &token_str, CHAR_APPEND);
 				i++;
+			}
+			else if (type == CHAR_OPAR)
+			{
+				add_token(&toklist, &token_str, TOKEN);
+				token_str = ft_append_char(token_str, '(');
+				add_token(&toklist, &token_str, CHAR_OPAR);
+			}
+			else if (type == CHAR_CPAR)
+			{
+				add_token(&toklist, &token_str, TOKEN);
+				token_str = ft_append_char(token_str, ')');
+				add_token(&toklist, &token_str, CHAR_CPAR);
 			}
 		}
 		else
