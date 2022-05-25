@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   ctrl_c.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/18 15:13:14 by oaizab            #+#    #+#             */
-/*   Updated: 2022/05/25 15:42:23 by hhamza           ###   ########.fr       */
+/*   Created: 2022/05/25 15:40:16 by hhamza            #+#    #+#             */
+/*   Updated: 2022/05/25 15:40:17 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*read_cmd(void)
+void	hide_ctrl_c(void)
 {
-	char	*cmd;
+	struct termios	term;
 
-	cmd = readline("minishell $ ");
-	if (!cmd)
-		ft_exit(EXIT_SUCCESS);
-	if (!ft_strlen(cmd))
-		return (free(cmd), read_cmd());
-	add_history(cmd);
-	if (!strcmp(cmd, "exit"))
-		(free(cmd), ft_exit(EXIT_SUCCESS));
-	return (cmd);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, 0, &term);
+}
+
+void	show_ctrl_c(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, 0, &term);
 }
