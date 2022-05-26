@@ -1,0 +1,17 @@
+<job>			::=	<command>
+				|	'(' <job> ')'
+				|	<job>   '&&' <job>
+				|	<job>   '||' <job>
+				|	< job > '|'  < job >
+
+<command>		::=	<simple command>
+				|	<command> '<' <filename>
+				|	<command> '>' <filename>
+				|	<command> '<<' <filename>
+				|	<command> '>>' <filename>
+
+<simple command>::=	<pathname>
+				|	<simple command>  <token list>
+
+<token list>	::=	(EMPTY)
+				|	<token> <token list>
