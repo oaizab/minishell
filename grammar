@@ -21,8 +21,9 @@ __________________________________________________________________________
 
 
 
-<TOKEN-LIST> ::= <TOKEN-LIST> <TOKEN>
-             |  <TOKEN>
+<TOKEN-LIST> ::= <TOKEN>
+             |  <TOKEN-LIST> <TOKEN>
+
 
 <REDIRECTION> ::=  '>'  <TOKEN>
                 |  '<'  <TOKEN>
@@ -42,8 +43,9 @@ __________________________________________________________________________
             |  <SHELL-COMMAND>
             |  <SHELL-COMMAND> <REDIRECTION-LIST>
 
-<SHELL-COMMAND> ::=  '(' <LIST> ')'
-				|	<LIST>
+<SHELL-COMMAND> ::=  <SUBSHELL>
+
+<SUBSHELL> ::=  '(' <LIST> ')'
 
 <LIST> ::=    <LIST> '&&'<LIST>
            |  <LIST> '||'<LIST>
