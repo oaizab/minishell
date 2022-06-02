@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ctrl_c.c                                           :+:      :+:    :+:   */
+/*   ft_ctrl_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 15:40:16 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/02 09:59:24 by hhamza           ###   ########.fr       */
+/*   Created: 2022/06/02 10:16:12 by hhamza            #+#    #+#             */
+/*   Updated: 2022/06/02 10:16:43 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Hide ^C when interruption signal (SIGINT) is sent
  *
  */
-void	hide_ctrl_c(void)
+void	ft_hide_ctrl_c(void)
 {
 	struct termios	term;
 
@@ -29,7 +29,7 @@ void	hide_ctrl_c(void)
  * @brief Restore ^C when interruption signal (SIGINT) is sent
  *
  */
-void	restore_ctrl_c(void)
+void	ft_restore_ctrl_c(void)
 {
 	struct termios	term;
 
