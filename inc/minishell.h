@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/02 10:16:43 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:22:25 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "libft.h"
 # include "lexer.h"
 
-char	*read_cmd(void);
+char	*ft_read_cmd(void);
 
 void	ft_install_signals(void);
 void	ft_uninstall_signals(void);
