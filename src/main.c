@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/02 09:53:27 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:12:48 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(void)
 	t_toklist	*toklist;
 
 	hide_ctrl_c();
-	install_signals();
+	ft_install_signals();
 	while (1)
 	{
 		cmd = read_cmd();

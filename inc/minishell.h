@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/02 09:58:49 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:12:52 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 
 char	*read_cmd(void);
 
-void	install_signals(void);
-void	uninstall_signals(void);
+void	ft_install_signals(void);
+void	ft_uninstall_signals(void);
 
 void	hide_ctrl_c(void);
 void	restore_ctrl_c(void);

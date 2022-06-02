@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 15:24:35 by hhamza            #+#    #+#             */
-/*   Updated: 2022/05/25 15:48:49 by hhamza           ###   ########.fr       */
+/*   Created: 2022/06/02 10:11:53 by hhamza            #+#    #+#             */
+/*   Updated: 2022/06/02 10:12:52 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Interruption signal (SIGINT) handler - Redisplay prompt instead of
+ * exiting
+ *
+ */
 static void	sigint_handler(int signum)
 {
 	(void) signum;
@@ -21,7 +26,11 @@ static void	sigint_handler(int signum)
 	rl_redisplay();
 }
 
-void	install_signals(void)
+/**
+ * @brief Install handlers for SIGINT and SIGQUIT
+ *
+ */
+void	ft_install_signals(void)
 {
 	struct sigaction	act;
 
@@ -33,7 +42,11 @@ void	install_signals(void)
 	sigaction(SIGQUIT, &act, NULL);
 }
 
-void	uninstall_signals(void)
+/**
+ * @brief Reset signal handlers for SIGINT & SIGQUIT to default
+ *
+ */
+void	ft_uninstall_signals(void)
 {
 	struct sigaction	act;
 
