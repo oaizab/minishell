@@ -29,6 +29,7 @@ void	hide_ctrl_c(void)
  * @brief Restore ^C when interruption signal (SIGINT) is sent
  *
  */
+void	restore_ctrl_c(void)
 {
 	struct termios	term;
 
