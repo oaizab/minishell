@@ -6,17 +6,34 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/05/25 15:42:47 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/02 09:53:27 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Print token list
+ *
+ * @param toklist: Token list
+ */
+static void	ft_print_toklist(t_toklist *toklist)
+{
+	t_token	*tokptr;
+
+	while (toklist != NULL)
+	{
+		tokptr = toklist->content;
+		printf("[%s] ", tokptr->tok);
+		toklist = toklist->next;
+	}
+	printf("\n");
+}
+
 int	main(void)
 {
 	char		*cmd;
 	t_toklist	*toklist;
-	t_token		*tokptr;
 
 	hide_ctrl_c();
 	install_signals();
@@ -24,13 +41,7 @@ int	main(void)
 	{
 		cmd = read_cmd();
 		toklist = ft_lexer(cmd);
-		while (toklist != NULL)
-		{
-			tokptr = toklist->content;
-			printf("[%s] ", tokptr->tok);
-			toklist = toklist->next;
-		}
-		printf("\n");
+		ft_print_toklist(toklist);
 		free(cmd);
 	}
 	return (0);
