@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:52:51 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/06 11:15:42 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/06 17:16:35 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,15 @@ static void	ft_default_state(t_toklist **toklist, t_token_type type, \
  */
 t_toklist	*ft_lexer(const char *cmd)
 {
-	int						i;
-	t_state					state;
-	t_token_type			type;
-	char					*token_str;
-	static t_toklist		*toklist;
+	int				i;
+	t_state			state;
+	t_token_type	type;
+	char			*token_str;
+	t_toklist		*toklist;
 
 	token_str = NULL;
 	state = STATE_DEFAULT;
+	toklist = NULL;
 	i = -1;
 	while (cmd[++i] != '\0')
 	{
