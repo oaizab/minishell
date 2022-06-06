@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/02 10:22:25 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:39:52 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_print_toklist(t_toklist *toklist)
 	while (toklist != NULL)
 	{
 		tokptr = toklist->content;
-		printf("[%s] ", tokptr->tok);
+		printf("[%s] ", tokptr->lexeme);
 		toklist = toklist->next;
 	}
 	printf("\n");
@@ -42,6 +42,7 @@ int	main(void)
 		cmd = ft_read_cmd();
 		toklist = ft_lexer(cmd);
 		ft_print_toklist(toklist);
+		ft_lstclear(&toklist, &ft_token_destroy);
 		free(cmd);
 	}
 	return (0);
