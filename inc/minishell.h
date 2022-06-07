@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/02 15:03:29 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/07 08:33:47 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 # include "libft.h"
 # include "ft_lexer.h"
+# include "ft_scanner.h"
 
 char	*ft_read_cmd(void);
 
