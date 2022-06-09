@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 09:24:04 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/06 10:07:02 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/09 16:10:14 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef enum e_token_type
 	TOKEN_DQUOTE,
 	TOKEN_SPACE,
 	TOKEN_OPAR,
-	TOKEN_CPAR
+	TOKEN_CPAR,
+	TOKEN_END
 }			t_token_type;
 
 typedef enum e_state
@@ -53,6 +54,7 @@ void			ft_add_token(t_toklist **toklist, char **token_str, \
 	t_token_type type);
 
 t_token_type	ft_get_token_type(const char *lexeme);
+void			ft_token_end(t_toklist **toklist);
 t_toklist		*ft_lexer(const char *cmd);
 
 #endif

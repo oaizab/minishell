@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:25:17 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/07 11:20:25 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/09 17:11:58 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,19 @@ void	ft_scanner_destroy(t_scanner **scanner)
  */
 t_token	*get_next_token(t_scanner *scanner)
 {
-	static size_t	i;
 	t_token			*tokptr;
 
-	if (i >= scanner->size)
-	{
-		return (NULL);
-	}
 	if (scanner->curr_token == NULL)
 	{
-		scanner->curr_token = scanner->toklist;
-		scanner->next_token = scanner->curr_token->next;
-		tokptr = scanner->curr_token->content;
+		scanner->next_token = scanner->toklist;
 	}
-	else
+	scanner->curr_token = scanner->next_token;
+	if (((t_token *) scanner->curr_token->content)->type == TOKEN_END)
 	{
-		scanner->curr_token = scanner->next_token;
-		scanner->next_token = scanner->next_token->next;
-		tokptr = scanner->curr_token->content;
+		return ((t_token *) scanner->next_token->content);
 	}
-	++i;
+	tokptr = scanner->next_token->content;
+	scanner->next_token = scanner->next_token->next;
 	return (tokptr);
 }
 
@@ -91,14 +84,10 @@ t_token	*ft_scanner_peek(t_scanner *scanner)
 {
 	if (scanner->curr_token == NULL)
 	{
-		return (scanner->toklist->content);
-	}
-	else if (scanner->next_token == NULL)
-	{
-		return (NULL);
+		return (get_next_token(scanner));
 	}
 	else
 	{
-		return (scanner->next_token->content);
+		return (scanner->curr_token->content);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:52:51 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/06 17:16:35 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/09 16:19:31 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,16 @@ t_toklist	*ft_lexer(const char *cmd)
 		else
 			ft_quote_state(&state, &token_str, type, cmd[i]);
 	}
-	return (ft_add_token(&toklist, &token_str, TOKEN), toklist);
+	ft_add_token(&toklist, &token_str, TOKEN);
+	return (ft_token_end(&toklist), toklist);
+}
+
+void	ft_token_end(t_toklist **toklist)
+{
+	t_token	*tokptr;
+
+	tokptr = ft_calloc(1, sizeof(t_token));
+	tokptr->lexeme = ft_strdup("TOKEN_END");
+	tokptr->type = TOKEN_END;
+	ft_lstadd_back(toklist, ft_lstnew(tokptr));
 }
