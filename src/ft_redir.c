@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 09:17:54 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/13 14:59:40 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,9 @@ t_ast_node *ft_parse_redir(t_scanner *scanner)
 		redir->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
-		{
 			redir->value = token->lexeme;
-		}
 		else
-		{
-			ft_error(ERR_SYNTAX, token);
-			return (NULL);
-		}
+			return (ft_error(ERR_SYNTAX, token), NULL);
 	}
 	if (ft_is_redir(ft_scanner_peek(scanner)->type))
 	{

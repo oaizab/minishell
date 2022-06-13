@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:20:22 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/12 18:47:39 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/13 17:06:41 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ void ft_error(t_error err, t_token *token)
 	}
 	else if (err == ERR_SYNTAX)
 		ft_syntax_error(token);
+	else if (err == ERR_CPAR)
+		ft_fprintf(2, "minishell: syntax error unclosed parenthesis\n");
 }

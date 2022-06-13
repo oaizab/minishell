@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:19:01 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 10:15:01 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/13 16:34:53 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,12 @@ void	display_ast(t_ast_node *root)
 		ft_printf("NOCMD\n", root->value);
 	display_ast(root->left);
 	display_ast(root->right);
+}
+
+void display_tree(t_ast_node *root)
+{
+	if (root == NULL)
+		return ;
+	display_tree(root->left);
+	display_tree(root->right);
 }

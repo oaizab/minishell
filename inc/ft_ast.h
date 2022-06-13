@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 09:31:33 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 10:06:04 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/13 16:35:46 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_ast_node
 {
 	t_node_type			type;
 	char				*value;
-	char				*args[ARG_MAX];
+	char				**args;
 	t_redir_type		redir_type;
 	struct s_ast_node		*left;
 	struct s_ast_node		*right;

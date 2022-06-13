@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 10:02:14 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/13 16:51:48 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(void)
 		cmd = ft_read_cmd();
 		toklist = ft_lexer(cmd);
 		scanner = ft_scanner_new(toklist);
-		if ((ast = ft_parse_cmdlist(scanner)) == NULL)
+		if ((ast = ft_parse_cmdline(scanner)) == NULL)
 		{
 			ft_scanner_destroy(&scanner);
 			free(cmd);
