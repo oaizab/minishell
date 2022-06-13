@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scanner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:25:17 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/09 17:11:58 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/13 09:14:45 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ t_scanner	*ft_scanner_new(t_toklist *toklist)
 		return (NULL);
 	}
 	scanner->toklist = toklist;
-	scanner->size = ft_lstsize(toklist);
-	scanner->curr_token = NULL;
-	scanner->next_token = NULL;
+	scanner->curr_token = toklist;
+	scanner->next_token = toklist->next;
 	return (scanner);
 }
 
@@ -60,16 +59,12 @@ t_token	*get_next_token(t_scanner *scanner)
 {
 	t_token			*tokptr;
 
-	if (scanner->curr_token == NULL)
-	{
-		scanner->next_token = scanner->toklist;
-	}
-	scanner->curr_token = scanner->next_token;
 	if (((t_token *) scanner->curr_token->content)->type == TOKEN_END)
 	{
-		return ((t_token *) scanner->next_token->content);
+		return ((t_token *) scanner->curr_token->content);
 	}
-	tokptr = scanner->next_token->content;
+	tokptr = scanner->curr_token->content;
+	scanner->curr_token = scanner->next_token;
 	scanner->next_token = scanner->next_token->next;
 	return (tokptr);
 }
@@ -82,9 +77,9 @@ t_token	*get_next_token(t_scanner *scanner)
  */
 t_token	*ft_scanner_peek(t_scanner *scanner)
 {
-	if (scanner->curr_token == NULL)
+	if (scanner->next_token == NULL)
 	{
-		return (get_next_token(scanner));
+		return (scanner->curr_token->content);
 	}
 	else
 	{

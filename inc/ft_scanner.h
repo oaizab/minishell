@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scanner.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:40:46 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/07 10:31:33 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/13 09:01:13 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 typedef struct s_scanner
 {
 	t_toklist	*toklist;
-	size_t		size;
 	t_toklist	*curr_token;
 	t_toklist	*next_token;
 }	t_scanner;

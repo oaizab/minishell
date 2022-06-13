@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/07 08:33:47 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/12 18:55:14 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include "libft.h"
 # include "ft_lexer.h"
 # include "ft_scanner.h"
+# include "ft_ast.h"
+# include "ft_parser.h"
+# include "ft_error.h"
 
 char	*ft_read_cmd(void);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:52:51 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/09 16:19:31 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/12 18:31:00 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_check_quote_tokens(t_token_type type, char **token_str, \
 static void	ft_separator_token(t_toklist **toklist, char **token_str, \
 	t_token_type type, char *token_val)
 {
-	ft_add_token(toklist, token_str, TOKEN);
+	ft_add_token(toklist, token_str, TOKEN_WORD);
 	*token_str = ft_append_str(*token_str, token_val);
 	ft_add_token(toklist, token_str, type);
 }
@@ -86,7 +86,7 @@ static void	ft_default_state(t_toklist **toklist, t_token_type type, \
 	char **token_str, int *i)
 {
 	if (type == TOKEN_SPACE)
-		ft_add_token(toklist, token_str, TOKEN);
+		ft_add_token(toklist, token_str, TOKEN_WORD);
 	else if (type == TOKEN_PIPE)
 		ft_separator_token(toklist, token_str, TOKEN_PIPE, "|");
 	else if (type == TOKEN_OR)
@@ -130,7 +130,7 @@ t_toklist	*ft_lexer(const char *cmd)
 		type = ft_get_token_type(&cmd[i]);
 		if (state == STATE_DEFAULT)
 		{
-			if (type == TOKEN_DEFAULT)
+			if (type == TOKEN_WORD)
 				token_str = ft_append_char(token_str, cmd[i]);
 			else if (type == TOKEN_DQUOTE || type == TOKEN_QUOTE)
 				ft_check_quote_tokens(type, &token_str, cmd[i], &state);
@@ -140,7 +140,7 @@ t_toklist	*ft_lexer(const char *cmd)
 		else
 			ft_quote_state(&state, &token_str, type, cmd[i]);
 	}
-	ft_add_token(&toklist, &token_str, TOKEN);
+	ft_add_token(&toklist, &token_str, TOKEN_WORD);
 	return (ft_token_end(&toklist), toklist);
 }
 
@@ -149,7 +149,7 @@ void	ft_token_end(t_toklist **toklist)
 	t_token	*tokptr;
 
 	tokptr = ft_calloc(1, sizeof(t_token));
-	tokptr->lexeme = ft_strdup("TOKEN_END");
+	tokptr->lexeme = ft_strdup("newline");
 	tokptr->type = TOKEN_END;
 	ft_lstadd_back(toklist, ft_lstnew(tokptr));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 09:24:04 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/09 16:10:14 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/12 18:11:47 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 
 typedef enum e_token_type
 {
-	TOKEN_DEFAULT,
-	TOKEN,
+	TOKEN_WORD,
 	TOKEN_PIPE,
 	TOKEN_AND,
 	TOKEN_OR,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_token_type.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:19:18 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/02 11:43:15 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/12 18:10:37 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_token_type	ft_get_token_type_helper(const char *lexeme)
 	else if (ft_strncmp(lexeme, ">", 1) == 0)
 		return (TOKEN_OUT);
 	else
-		return (TOKEN_DEFAULT);
+		return (TOKEN_WORD);
 }
 
 /**
