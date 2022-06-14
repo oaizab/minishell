@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 14:59:40 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 08:53:16 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ static t_redir_type get_redir_type(t_token_type type)
 t_ast_node *ft_parse_redir(t_scanner *scanner)
 {
 	t_ast_node	*redir;
+	t_ast_node	*redirtmp;
 	t_token		*token;
 
-	token = get_next_token(scanner);
 	redir = NULL;
-	if (ft_is_redir(token->type))
+	if (ft_is_redir(ft_scanner_peek(scanner)->type))
 	{
+		token = get_next_token(scanner);
 		redir = ft_ast_node_new(NODE_REDIR, NULL);
 		if (redir == NULL)
 			return (NULL);
+			redirtmp = redir;
 		redir->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
@@ -49,11 +51,19 @@ t_ast_node *ft_parse_redir(t_scanner *scanner)
 		else
 			return (ft_error(ERR_SYNTAX, token), NULL);
 	}
-	if (ft_is_redir(ft_scanner_peek(scanner)->type))
+	while (ft_is_redir(ft_scanner_peek(scanner)->type))
 	{
-		redir->left = ft_parse_redir(scanner);
+		token = get_next_token(scanner);
+		redir->left = ft_ast_node_new(NODE_REDIR, NULL);
 		if (redir->left == NULL)
 			return (NULL);
+		redir = redir->left;
+		redir->redir_type = get_redir_type(token->type);
+		token = get_next_token(scanner);
+		if (token->type == TOKEN_WORD)
+			redir->value = token->lexeme;
+		else
+			return (ft_error(ERR_SYNTAX, token), NULL);
 	}
-	return (redir);
+	return (redirtmp);
 }
