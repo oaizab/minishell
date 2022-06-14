@@ -6,17 +6,30 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:21:27 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 14:57:06 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/14 18:51:22 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Test if token is a command list (Argument or redirection)
+ *
+ * @param type: Token type.
+ * @return bool: True if token is a command list, false otherwise.
+ */
 bool	ft_is_cmdlist(t_token_type type)
 {
 	return (type == TOKEN_WORD || ft_is_redir(type));
 }
 
+/**
+ * @brief Helper function for ft_parse_cmdlist.
+ *
+ * @param scanner: Scanner object.
+ * @param cmdlist: Command list node.
+ * @return bool: false if ft_parse_cmdlist shall return NULL, true otherwise.
+ */
 static bool	ft_redirlist(t_scanner *scanner, t_ast_node **cmdlist)
 {
 	if (ft_is_redir(ft_scanner_peek(scanner)->type))
@@ -30,6 +43,15 @@ static bool	ft_redirlist(t_scanner *scanner, t_ast_node **cmdlist)
 	return (true);
 }
 
+/**
+ * @brief Helper function for ft_parse_cmdlist.
+ *
+ * @param scanner: Scanner object.
+ * @param cmdlist: Command list node.
+ * @param cmdtmp: Temporary command node.
+ * @param i: Iterator integer
+ * @return bool: false if ft_parse_cmdlist shall return NULL, true otherwise.
+ */
 static bool	ft_cmdlist(t_scanner *scanner, t_ast_node **cmdlist, \
 	t_ast_node **cmdtmp, int i)
 {
@@ -59,6 +81,12 @@ static bool	ft_cmdlist(t_scanner *scanner, t_ast_node **cmdlist, \
 	return (true);
 }
 
+/**
+ * @brief Parse a command line.
+ *
+ * @param scanner: Scanner object.
+ * @return t_ast_node*: Command line node, NULL on failure.
+ */
 t_ast_node	*ft_parse_cmdlist(t_scanner *scanner)
 {
 	t_ast_node	*cmdlist;
