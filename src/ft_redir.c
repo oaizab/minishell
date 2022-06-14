@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 08:53:16 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:46:33 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,23 @@ t_ast_node *ft_parse_redir(t_scanner *scanner)
 		redir->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
-			redir->value = token->lexeme;
+			redir->value = ft_strdup(token->lexeme);
 		else
-			return (ft_error(ERR_SYNTAX, token), NULL);
+			return (ft_ast_free(redirtmp), ft_error(ERR_SYNTAX, token), NULL);
 	}
 	while (ft_is_redir(ft_scanner_peek(scanner)->type))
 	{
 		token = get_next_token(scanner);
 		redir->left = ft_ast_node_new(NODE_REDIR, NULL);
 		if (redir->left == NULL)
-			return (NULL);
+			return (ft_ast_free(redirtmp), NULL);
 		redir = redir->left;
 		redir->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
-			redir->value = token->lexeme;
+			redir->value = ft_strdup(token->lexeme);
 		else
-			return (ft_error(ERR_SYNTAX, token), NULL);
+			return (ft_ast_free(redirtmp), ft_error(ERR_SYNTAX, token), NULL);
 	}
 	return (redirtmp);
 }

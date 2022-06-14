@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:41:21 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/02 10:16:43 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:02:03 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	ft_exit(int status)
 {
 	ft_restore_ctrl_c();
+	rl_clear_history();
 	exit(status);
 }

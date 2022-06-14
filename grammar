@@ -63,7 +63,7 @@ __________________________________________________________________________
 <pipeline>	::= <command> {"|" <command>}
 
 <command>	::= <cmdlist>
-		| "(" <cmdline> ")" <redir>
+		| "(" <cmdline> ")"
 
 <cmdlist>	::= <redir> {<arg> <redir>}
 

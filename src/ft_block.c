@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:40:41 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 16:47:39 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 09:46:00 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ t_ast_node	*ft_parse_block(t_scanner *scanner)
 	if (!ft_is_command(ft_scanner_peek(scanner)->type))
 		return (ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 	pipetmp = ft_parse_pipeline(scanner);
-	if (ft_is_block(ft_scanner_peek(scanner)->type))
+	if (pipetmp != NULL && ft_is_block(ft_scanner_peek(scanner)->type))
 	{
 		block = ft_ast_node_new(ft_get_block_type( \
 			ft_scanner_peek(scanner)->type), NULL);
+		if (!block)
+			return (ft_ast_free(pipetmp), NULL);
 		blocktmp = block;
 		block->left = pipetmp;
 	}
@@ -47,14 +49,16 @@ t_ast_node	*ft_parse_block(t_scanner *scanner)
 	{
 		get_next_token(scanner);
 		if (!ft_is_command(ft_scanner_peek(scanner)->type))
-			return (ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
+			return (ft_ast_free(block), ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 		pipetmp = ft_parse_pipeline(scanner);
 		if (!pipetmp)
-			return (NULL);
+			return (ft_ast_free(block), NULL);
 		if (ft_is_block(ft_scanner_peek(scanner)->type))
 		{
 			blocktmp->right = ft_ast_node_new(ft_get_block_type( \
 				ft_scanner_peek(scanner)->type), NULL);
+			if (!blocktmp->right)
+				return (ft_ast_free(block), NULL);
 			blocktmp = blocktmp->right;
 			blocktmp->left = pipetmp;
 		}

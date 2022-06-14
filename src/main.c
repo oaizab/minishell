@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 16:51:48 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:01:13 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	main(void)
 		}
 		display_ast(ast);
 		// ft_print_toklist(toklist);
-		// ft_lstclear(&toklist, &ft_token_destroy);
+		//ft_lstclear(&toklist, &ft_token_destroy);
+		ft_scanner_destroy(&scanner);
+		ft_ast_free(ast);
 		free(cmd);
 	}
 	return (0);

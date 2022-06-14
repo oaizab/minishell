@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:19:01 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 16:34:53 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:34:36 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,19 @@ void	display_ast(t_ast_node *root)
 	display_ast(root->right);
 }
 
-void display_tree(t_ast_node *root)
+void	ft_ast_free(t_ast_node *root)
 {
+	int	i;
+
 	if (root == NULL)
 		return ;
-	display_tree(root->left);
-	display_tree(root->right);
+	if (root->value != NULL)
+		free(root->value);
+	i = 0;
+	while (root->args && root->args[i])
+		free(root->args[i++]);
+	free(root->args);
+	ft_ast_free(root->left);
+	ft_ast_free(root->right);
+	free(root);
 }

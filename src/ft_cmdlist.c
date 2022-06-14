@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:21:27 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 16:38:31 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 09:33:27 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,21 @@ static bool	ft_cmdlist(t_scanner *scanner, t_ast_node **cmdlist, \
 	{
 		token = get_next_token(scanner);
 		(*cmdtmp)->value = ft_strdup(token->lexeme);
+		if ((*cmdtmp)->value == NULL)
+			return (ft_ast_free(*cmdtmp), false);
 		(*cmdtmp)->type = NODE_CMD;
 		(*cmdtmp)->args = ft_calloc(ARG_MAX, sizeof(char *));
-		// TODO: check if calloc failed
+		if ((*cmdtmp)->args == NULL)
+			return (ft_ast_free(*cmdtmp), false); //TODO: add malloc error
 		(*cmdtmp)->args[0] = ft_strdup(token->lexeme);
-		if (!ft_redirlist(scanner, cmdlist))
-			return (false);
+		if ((*cmdtmp)->args[0] == NULL || !ft_redirlist(scanner, cmdlist))
+			return (ft_ast_free(*cmdtmp), false);
 		while (ft_scanner_peek(scanner)->type == TOKEN_WORD)
 		{
 			token = get_next_token(scanner);
 			(*cmdtmp)->args[i++] = ft_strdup(token->lexeme);
-			if (!ft_redirlist(scanner, cmdlist))
-				return (false);
+			if (!(*cmdtmp)->args[i - 1] || !ft_redirlist(scanner, cmdlist))
+				return (ft_ast_free(*cmdtmp), false);
 		}
 	}
 	return (true);
@@ -66,14 +69,14 @@ t_ast_node	*ft_parse_cmdlist(t_scanner *scanner)
 		return (NULL);
 	cmdtmp = cmdlist;
 	if (!ft_redirlist(scanner, &cmdlist))
-		return (NULL);
+		return (ft_ast_free(cmdtmp), NULL);
 	if (!ft_cmdlist(scanner, &cmdlist, &cmdtmp, 1))
 		return (NULL);
 	if (cmdtmp->type == NODE_NOCMD)
 	{
 		cmdlist = cmdtmp->left;
-		// TODO: free inside cmdtmp
-		return (free(cmdtmp), cmdlist);
+		cmdtmp->left = NULL;
+		return (ft_ast_free(cmdtmp), cmdlist);
 	}
 	return (cmdtmp);
 }

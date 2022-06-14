@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:57:24 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 15:58:48 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 09:42:12 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ t_ast_node	*ft_parse_pipeline(t_scanner *scanner)
 	if (!ft_is_command(ft_scanner_peek(scanner)->type))
 		return (ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 	cmdtmp = ft_parse_command(scanner);
-	if (ft_scanner_peek(scanner)->type == TOKEN_PIPE)
+	if (cmdtmp != NULL && ft_scanner_peek(scanner)->type == TOKEN_PIPE)
 	{
 		pipeline = ft_ast_node_new(NODE_PIPE, NULL);
+		if (!pipeline)
+			return (ft_ast_free(cmdtmp), NULL);
 		pipetmp = pipeline;
 		pipeline->left = cmdtmp;
 	}
@@ -36,10 +38,12 @@ t_ast_node	*ft_parse_pipeline(t_scanner *scanner)
 			return (ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 		cmdtmp = ft_parse_command(scanner);
 		if (!cmdtmp)
-			return (NULL);
+			return (ft_ast_free(pipeline), NULL);
 		if (ft_scanner_peek(scanner)->type == TOKEN_PIPE)
 		{
 			pipetmp->right = ft_ast_node_new(NODE_PIPE, NULL);
+			if (!pipetmp->right)
+				return (ft_ast_free(pipeline), NULL);
 			pipetmp = pipetmp->right;
 			pipetmp->left = cmdtmp;
 		}
