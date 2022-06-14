@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:20:22 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/13 17:06:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 14:50:08 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_syntax_error(t_token *token)
+static void	ft_syntax_error(t_token *token)
 {
-	ft_fprintf(2, "minishell: syntax error near unexpected token '%s'\n", token->lexeme);
+	ft_fprintf(2, "minishell: syntax error near unexpected token '%s'\n", \
+		token->lexeme);
 }
 
-void ft_error(t_error err, t_token *token)
+void	ft_error(t_error err, t_token *token)
 {
 	if (err == ERR_MALLOC)
 	{

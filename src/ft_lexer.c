@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:52:51 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/12 18:31:00 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:16:08 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,37 +74,28 @@ static void	ft_separator_token(t_toklist **toklist, char **token_str, \
 	ft_add_token(toklist, token_str, type);
 }
 
-/**
- * @brief Helper function for default state
- *
- * @param toklist: Token list address
- * @param type: Current token type
- * @param token_str: Token string address
- * @param i: Current character index
- */
-static void	ft_default_state(t_toklist **toklist, t_token_type type, \
-	char **token_str, int *i)
+static void	ft_lexer_helper(const char *cmd, char **token_str, t_state state, \
+	t_toklist **toklist)
 {
-	if (type == TOKEN_SPACE)
-		ft_add_token(toklist, token_str, TOKEN_WORD);
-	else if (type == TOKEN_PIPE)
-		ft_separator_token(toklist, token_str, TOKEN_PIPE, "|");
-	else if (type == TOKEN_OR)
-		(ft_separator_token(toklist, token_str, TOKEN_OR, "||"), ++(*i));
-	else if (type == TOKEN_AND)
-		(ft_separator_token(toklist, token_str, TOKEN_AND, "&&"), ++(*i));
-	else if (type == TOKEN_IN)
-		ft_separator_token(toklist, token_str, TOKEN_IN, "<");
-	else if (type == TOKEN_OUT)
-		ft_separator_token(toklist, token_str, TOKEN_OUT, ">");
-	else if (type == TOKEN_HEREDOC)
-		(ft_separator_token(toklist, token_str, TOKEN_HEREDOC, "<<"), ++(*i));
-	else if (type == TOKEN_APPEND)
-		(ft_separator_token(toklist, token_str, TOKEN_APPEND, ">>"), ++(*i));
-	else if (type == TOKEN_OPAR)
-		ft_separator_token(toklist, token_str, TOKEN_OPAR, "(");
-	else if (type == TOKEN_CPAR)
-		ft_separator_token(toklist, token_str, TOKEN_CPAR, ")");
+	int				i;
+	t_token_type	type;
+
+	i = -1;
+	while (cmd[++i] != '\0')
+	{
+		type = ft_get_token_type(&cmd[i]);
+		if (state == STATE_DEFAULT)
+		{
+			if (type == TOKEN_WORD)
+				*token_str = ft_append_char(*token_str, cmd[i]);
+			else if (type == TOKEN_DQUOTE || type == TOKEN_QUOTE)
+				ft_check_quote_tokens(type, token_str, cmd[i], &state);
+			else
+				ft_default_state(toklist, type, token_str, &i);
+		}
+		else
+			ft_quote_state(&state, token_str, type, cmd[i]);
+	}
 }
 
 /**
@@ -115,41 +106,14 @@ static void	ft_default_state(t_toklist **toklist, t_token_type type, \
  */
 t_toklist	*ft_lexer(const char *cmd)
 {
-	int				i;
 	t_state			state;
-	t_token_type	type;
 	char			*token_str;
 	t_toklist		*toklist;
 
 	token_str = NULL;
 	state = STATE_DEFAULT;
 	toklist = NULL;
-	i = -1;
-	while (cmd[++i] != '\0')
-	{
-		type = ft_get_token_type(&cmd[i]);
-		if (state == STATE_DEFAULT)
-		{
-			if (type == TOKEN_WORD)
-				token_str = ft_append_char(token_str, cmd[i]);
-			else if (type == TOKEN_DQUOTE || type == TOKEN_QUOTE)
-				ft_check_quote_tokens(type, &token_str, cmd[i], &state);
-			else
-				ft_default_state(&toklist, type, &token_str, &i);
-		}
-		else
-			ft_quote_state(&state, &token_str, type, cmd[i]);
-	}
+	ft_lexer_helper(cmd, &token_str, state, &toklist);
 	ft_add_token(&toklist, &token_str, TOKEN_WORD);
 	return (ft_token_end(&toklist), toklist);
-}
-
-void	ft_token_end(t_toklist **toklist)
-{
-	t_token	*tokptr;
-
-	tokptr = ft_calloc(1, sizeof(t_token));
-	tokptr->lexeme = ft_strdup("newline");
-	tokptr->type = TOKEN_END;
-	ft_lstadd_back(toklist, ft_lstnew(tokptr));
 }

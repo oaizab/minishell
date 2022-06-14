@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ast.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 09:31:33 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 09:30:29 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 14:32:54 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ typedef enum e_redir_type
 	REDIR_HEREDOC
 }				t_redir_type;
 
-
 typedef struct s_ast_node
 {
-	t_node_type			type;
-	char				*value;
-	char				**args;
-	t_redir_type		redir_type;
+	t_node_type				type;
+	char					*value;
+	char					**args;
+	t_redir_type			redir_type;
 	struct s_ast_node		*left;
 	struct s_ast_node		*right;
 }				t_ast_node;

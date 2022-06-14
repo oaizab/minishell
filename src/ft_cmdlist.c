@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmdlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:21:27 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 09:33:27 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 14:57:06 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static bool	ft_cmdlist(t_scanner *scanner, t_ast_node **cmdlist, \
 		token = get_next_token(scanner);
 		(*cmdtmp)->value = ft_strdup(token->lexeme);
 		if ((*cmdtmp)->value == NULL)
-			return (ft_ast_free(*cmdtmp), false);
+			return (ft_ast_free(*cmdtmp), ft_error(ERR_MALLOC, NULL), false);
 		(*cmdtmp)->type = NODE_CMD;
 		(*cmdtmp)->args = ft_calloc(ARG_MAX, sizeof(char *));
 		if ((*cmdtmp)->args == NULL)
-			return (ft_ast_free(*cmdtmp), false); //TODO: add malloc error
+			return (ft_ast_free(*cmdtmp), ft_error(ERR_MALLOC, NULL), false);
 		(*cmdtmp)->args[0] = ft_strdup(token->lexeme);
 		if ((*cmdtmp)->args[0] == NULL || !ft_redirlist(scanner, cmdlist))
 			return (ft_ast_free(*cmdtmp), false);

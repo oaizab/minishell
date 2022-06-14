@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 09:24:04 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/12 18:11:47 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:16:25 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void			ft_add_token(t_toklist **toklist, char **token_str, \
 
 t_token_type	ft_get_token_type(const char *lexeme);
 void			ft_token_end(t_toklist **toklist);
+void			ft_default_state(t_toklist **toklist, t_token_type type, \
+	char **token_str, int *i);
 t_toklist		*ft_lexer(const char *cmd);
 
 #endif

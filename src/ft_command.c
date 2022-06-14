@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 13:05:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 11:59:14 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 15:19:37 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	ft_is_binary(t_token_type type)
 		|| type == TOKEN_END);
 }
 
-static bool ft_is_closed(t_token_type type)
+static bool	ft_is_closed(t_token_type type)
 {
 	return (type == TOKEN_CPAR || ft_is_binary(type));
 }
@@ -73,5 +73,3 @@ t_ast_node	*ft_parse_command(t_scanner *scanner)
 	else
 		return (NULL);
 }
-
-// (( cmd ))

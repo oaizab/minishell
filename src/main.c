@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 10:01:13 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/14 14:53:18 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ int	main(void)
 		cmd = ft_read_cmd();
 		toklist = ft_lexer(cmd);
 		scanner = ft_scanner_new(toklist);
-		if ((ast = ft_parse_cmdline(scanner)) == NULL)
+		ast = ft_parse_cmdline(scanner);
+		if (ast == NULL)
 		{
 			ft_scanner_destroy(&scanner);
 			free(cmd);
-			continue;
+			continue ;
 		}
 		display_ast(ast);
-		// ft_print_toklist(toklist);
-		//ft_lstclear(&toklist, &ft_token_destroy);
 		ft_scanner_destroy(&scanner);
 		ft_ast_free(ast);
 		free(cmd);
