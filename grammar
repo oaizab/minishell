@@ -1,0 +1,74 @@
+<job>			::=	<command>
+				|	'(' <job> ')'
+				|	<job>   '&&' <job>
+				|	<job>   '||' <job>
+				|	< job > '|'  < job >
+
+<command>		::=	<simple command>
+				|	<command> '<' <filename>
+				|	<command> '>' <filename>
+				|	<command> '<<' <filename>
+				|	<command> '>>' <filename>
+
+<simple command>::=	<pathname>
+				|	<simple command>  <token list>
+
+<token list>	::=	(EMPTY)
+				|	<token> <token list>
+
+__________________________________________________________________________
+
+
+
+
+<TOKEN-LIST> ::= <TOKEN>
+             |  <TOKEN-LIST> <TOKEN>
+
+
+<REDIRECTION> ::=  '>'  <TOKEN>
+                |  '<'  <TOKEN>
+                |  '>>' <TOKEN>
+                |  '<<' <TOKEN>
+
+<SIMPLE-COMMAND-ELEMENT> ::= <TOKEN-LIST>
+                          |  <REDIRECTION>
+
+<REDIRECTION-LIST> ::= <REDIRECTION>
+                    |  <REDIRECTION-LIST> <REDIRECTION>
+
+<SIMPLE-COMMAND> ::=  <SIMPLE-COMMAND-ELEMENT>
+                   |  <SIMPLE-COMMAND> <SIMPLE-COMMAND-ELEMENT>
+
+<COMMAND> ::=  <SIMPLE-COMMAND>
+            |  <SHELL-COMMAND>
+            |  <SHELL-COMMAND> <REDIRECTION-LIST>
+
+<SHELL-COMMAND> ::=  <SUBSHELL>
+
+<SUBSHELL> ::=  '(' <LIST> ')'
+
+<LIST> ::=    <LIST> '&&'<LIST>
+           |  <LIST> '||'<LIST>
+           |  <PIPELINE>
+
+<PIPELINE> ::=  <PIPELINE> '|' <PIPELINE>
+      		|   <COMMAND>
+
+__________________________________________________________________________
+
+<cmdline>	::= <block>
+
+<block>		::= <pipeline> {("&&" | "||") <pipeline>}
+
+<pipeline>	::= <command> {"|" <command>}
+
+<command>	::= <cmdlist>
+		| "(" <cmdline> ")"
+
+<cmdlist>	::= <redir> {<arg> <redir>}
+
+<redir>		::= {("<" | "<<" | ">" | ">>") <filename>}
+
+<arg>		::= token WORD | token VAR | token GROUP
+
+<filename>	::= token WORD | token VAR | token GROUP
