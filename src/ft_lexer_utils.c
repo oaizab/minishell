@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:15:02 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/14 17:16:29 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:30:51 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief Helper function to run when finding a separator token (pipe,
+ * redirection, and, or, parentheses, ...)
+ *
+ * @param toklist: Token list address
+ * @param token_str: Token string address
+ * @param type: Current token type
+ * @param token_val: Token value
+ */
+static void	ft_separator_token(t_toklist **toklist, char **token_str, \
+	t_token_type type, char *token_val)
+{
+	ft_add_token(toklist, token_str, TOKEN_WORD);
+	*token_str = ft_append_str(*token_str, token_val);
+	ft_add_token(toklist, token_str, type);
+}
 
 /**
  * @brief Helper function for default state
