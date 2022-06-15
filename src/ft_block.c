@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_block.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:40:41 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 18:49:52 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 15:07:40 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static bool	ft_parse_block_helper(t_scanner *scanner, t_ast_node *block, \
 
 	while (ft_is_block(ft_scanner_peek(scanner)->type))
 	{
+		block = *blocktmp;
 		get_next_token(scanner);
 		if (!ft_is_command(ft_scanner_peek(scanner)->type))
 			return (ft_ast_free(block), \
@@ -61,12 +62,12 @@ static bool	ft_parse_block_helper(t_scanner *scanner, t_ast_node *block, \
 			return (ft_ast_free(block), false);
 		if (ft_is_block(ft_scanner_peek(scanner)->type))
 		{
-			(*blocktmp)->right = ft_ast_node_new(ft_get_block_type(\
+			(*blocktmp) = ft_ast_node_new(ft_get_block_type(\
 				ft_scanner_peek(scanner)->type), NULL);
-			if ((*blocktmp)->right == NULL)
+			if ((*blocktmp) == NULL)
 				return (ft_ast_free(block), false);
-			*blocktmp = (*blocktmp)->right;
-			(*blocktmp)->left = pipetmp;
+			(*blocktmp)->left = block;
+			block->right = pipetmp;
 		}
 		else
 			(*blocktmp)->right = pipetmp;
@@ -103,5 +104,5 @@ t_ast_node	*ft_parse_block(t_scanner *scanner)
 	if (ft_parse_block_helper(scanner, block, &blocktmp) == false)
 		return (NULL);
 	else
-		return (block);
+		return (blocktmp);
 }
