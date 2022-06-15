@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 18:31:24 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 09:37:20 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_print_toklist(t_toklist *toklist)
 int	main(void)
 {
 	char		*cmd;
-	t_toklist	*toklist;
 	t_ast_node	*ast;
 
 	ft_hide_ctrl_c();
@@ -41,16 +40,11 @@ int	main(void)
 	while (1)
 	{
 		cmd = ft_read_cmd();
-		toklist = ft_lexer(cmd);
-		ast = ft_parser(toklist);
+		ast = ft_parser(cmd);
 		if (ast == NULL)
-		{
-			free(cmd);
 			continue ;
-		}
 		display_ast(ast);
 		ft_ast_free(ast);
-		free(cmd);
 	}
 	return (0);
 }

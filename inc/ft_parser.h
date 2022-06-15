@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:20:06 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 09:22:58 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 09:34:15 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_ast_node	*ft_parse_command(t_scanner *scanner);
 t_ast_node	*ft_parse_pipeline(t_scanner *scanner);
 t_ast_node	*ft_parse_block(t_scanner *scanner);
 t_ast_node	*ft_parse_cmdline(t_scanner *scanner);
-t_ast_node	*ft_parser(t_toklist *toklist);
+t_ast_node	*ft_parser(char *cmd);
 
 bool		ft_is_redir(t_token_type type);
 bool		ft_is_cmdlist(t_token_type type);

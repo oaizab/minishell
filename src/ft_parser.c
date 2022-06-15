@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:20:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 18:29:02 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 09:54:33 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
  * @param toklist: Token list to parse
  * @return t_ast_node*: Abstract syntax tree, NULL on failure
  */
-t_ast_node	*ft_parser(t_toklist *toklist)
+t_ast_node	*ft_parser(char *cmd)
 {
+	t_toklist	*toklist;
 	t_scanner	*scanner;
 	t_ast_node	*ast;
 
+	toklist = ft_lexer(cmd);
+	free(cmd);
 	scanner = ft_scanner_new(toklist);
 	if (scanner == NULL)
 		return (NULL);
