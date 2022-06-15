@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:52:51 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/14 17:30:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/15 08:02:29 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 /**
  * @brief Helper function for single/double quote state
  *
+ * @param state: Current state address.
+ * @param token_str: Current token string address.
+ * @param type: Current token type.
+ * @param curr_char: Current character.
  */
 static void	ft_quote_state(t_state *state, char **token_str, \
 	t_token_type type, char curr_char)
@@ -57,6 +61,14 @@ static void	ft_check_quote_tokens(t_token_type type, char **token_str, \
 	}
 }
 
+/**
+ * @brief Helper function for ft_lexer.
+ *
+ * @param cmd: Input command string.
+ * @param token_str: Current token string address.
+ * @param state: Current state.
+ * @param toklist: Token list address.
+ */
 static void	ft_lexer_helper(const char *cmd, char **token_str, t_state state, \
 	t_toklist **toklist)
 {

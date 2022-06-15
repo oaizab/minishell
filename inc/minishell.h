@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/12 18:55:14 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/15 09:26:33 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@
 # include "ft_ast.h"
 # include "ft_parser.h"
 # include "ft_error.h"
+
+/**
+ * @brief Minishell main header file.
+ *
+ * @features:
+ *  * ft_read_cmd: Read command.
+ *  * ft_install_signal: Install custom signal handlers.
+ *  * ft_uninstall_signals: Uninstall custom signal handlers.
+ *  * ft_hide_ctrl_c: Hide Ctrl+C echo.
+ *  * ft_show_ctrl_c: Restore Ctrl+C echo.
+ *  * ft_exit: Exit minishell.
+ */
 
 char	*ft_read_cmd(void);
 

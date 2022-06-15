@@ -6,12 +6,20 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:57:24 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 16:04:26 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 08:06:13 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Helper function for ft_parse_pipeline.
+ *
+ * @param scanner: Scanner object.
+ * @param pipeline: Pipeline node.
+ * @param pipetmp: Temporary pipeline node address.
+ * @return bool: false if ft_parse_pipeline shall return NULL, true otherwise.
+ */
 static bool	ft_parse_pipeline_helper(t_scanner *scanner, t_ast_node *pipeline, \
 	t_ast_node **pipetmp)
 {
@@ -40,6 +48,12 @@ static bool	ft_parse_pipeline_helper(t_scanner *scanner, t_ast_node *pipeline, \
 	return (true);
 }
 
+/**
+ * @brief Parse pipeline.
+ *
+ * @param scanner: Scanner object.
+ * @return t_ast_node*: Pipeline node, NULL on failure.
+ */
 t_ast_node	*ft_parse_pipeline(t_scanner *scanner)
 {
 	t_ast_node	*pipeline;

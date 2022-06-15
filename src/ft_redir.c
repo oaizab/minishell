@@ -6,18 +6,30 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 15:15:31 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 08:10:57 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Test if token is a redirection,
+ *
+ * @param type: Token type.
+ * @return bool: True if token is a redirection, false otherwise.
+ */
 bool	ft_is_redir(t_token_type type)
 {
 	return (type == TOKEN_IN || type == TOKEN_OUT || type == TOKEN_APPEND \
 		|| type == TOKEN_HEREDOC);
 }
 
+/**
+ * @brief Get the redirection type.
+ *
+ * @param type: Redirection token type.
+ * @return t_redir_type: Redirection type (Input, output, append or heredoc).
+ */
 static t_redir_type	get_redir_type(t_token_type type)
 {
 	if (type == TOKEN_IN)
@@ -30,8 +42,16 @@ static t_redir_type	get_redir_type(t_token_type type)
 		return (REDIR_HEREDOC);
 }
 
-static bool	ft_parse_redir_helper(t_scanner *scanner, \
-	t_ast_node **redir, t_ast_node **redirtmp)
+/**
+ * @brief Helper function for ft_parse_redir.
+ *
+ * @param scanner: Scanner object.
+ * @param redir: Redicrection node addess.
+ * @param redirtmp: Redirection temporary node address.
+ * @return bool: false if ft_parse_redir shall return NULL, true otherwise.
+ */
+static bool	ft_parse_redir_helper(t_scanner *scanner, t_ast_node **redir, \
+	t_ast_node **redirtmp)
 {
 	t_token	*token;
 
@@ -40,7 +60,7 @@ static bool	ft_parse_redir_helper(t_scanner *scanner, \
 		token = get_next_token(scanner);
 		*redir = ft_ast_node_new(NODE_REDIR, NULL);
 		if (*redir == NULL)
-			return (ft_error(ERR_MALLOC, NULL), NULL);
+			return (ft_error(ERR_MALLOC, NULL), false);
 		*redirtmp = *redir;
 		(*redir)->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
@@ -56,6 +76,12 @@ static bool	ft_parse_redir_helper(t_scanner *scanner, \
 	return (true);
 }
 
+/**
+ * @brief Parse redirection.
+ *
+ * @param scanner: Scanner object.
+ * @return t_ast_node*: Redirection node, NULL otherwise.
+ */
 t_ast_node	*ft_parse_redir(t_scanner *scanner)
 {
 	t_ast_node	*redir;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scanner.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 16:40:46 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/13 09:01:13 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/15 08:22:32 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include "ft_lexer.h"
 
 /**
- * @brief API that reads from a token list
+ * @brief API that reads from a token list.
+ *
+ * @datatypes:
+ *  * t_scanner: Main scanner structure.
  *
  * @features:
  * 	* ft_scanner_new: Create a new scanner object.

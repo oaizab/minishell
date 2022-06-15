@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:15:02 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/14 17:30:51 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/15 07:14:21 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void	ft_default_state(t_toklist **toklist, t_token_type type, \
 		ft_separator_token(toklist, token_str, TOKEN_CPAR, ")");
 }
 
+/**
+ * @brief Add END token to token list.
+ *
+ * @param toklist: Token list address
+ */
 void	ft_token_end(t_toklist **toklist)
 {
 	t_token	*tokptr;
