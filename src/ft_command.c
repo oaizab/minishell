@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 13:05:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/14 19:07:07 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 16:10:56 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,15 @@ t_ast_node	*ft_parse_command(t_scanner *scanner)
 	static int	lvl = 0;
 
 	if (ft_is_cmdlist(ft_scanner_peek(scanner)->type))
-		return (ft_parse_cmdlist(scanner));
+	{
+		subshell = ft_parse_cmdlist(scanner);
+		if (subshell == NULL)
+			return (NULL);
+		if (lvl == 0 && !ft_is_binary(ft_scanner_peek(scanner)->type))
+			return (ft_ast_free(subshell), \
+				ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
+		return (subshell);
+	}
 	else if (ft_scanner_peek(scanner)->type == TOKEN_OPAR)
 	{
 		lvl++;
