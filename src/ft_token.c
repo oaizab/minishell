@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 10:27:03 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/14 10:39:11 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/15 11:31:17 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,21 @@ void	ft_token_destroy(void *tok_addr)
  * @param token_str: Address of token string
  * @param type: Token type
  */
-void	ft_add_token(t_toklist **toklist, char **token_str, t_token_type type)
+bool	ft_add_token(t_toklist **toklist, char **token_str, t_token_type type)
 {
 	t_token	*token;
+	t_list	*new_node;
 
 	if (*token_str != NULL)
 	{
 		token = ft_token_init(*token_str, type);
-		ft_lstadd_back(toklist, ft_lstnew(token));
-		token = NULL;
+		if (!token)
+			return (false);
+		new_node = ft_lstnew(token);
+		if (!new_node)
+			return (ft_token_destroy(token), false);
+		ft_lstadd_back(toklist, new_node);
 		*token_str = NULL;
 	}
+	return (true);
 }

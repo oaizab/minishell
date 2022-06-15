@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:20:22 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 07:12:28 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 11:06:20 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ void	ft_error(t_error err, t_token *token)
 		ft_syntax_error(token);
 	else if (err == ERR_CPAR)
 		ft_fprintf(2, "minishell: syntax error unclosed parenthesis\n");
+	else if (err == ERR_QUOTE)
+		ft_fprintf(2, "minishell: syntax error unclosed quote\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:20:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 09:54:33 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 11:07:32 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_ast_node	*ft_parser(char *cmd)
 
 	toklist = ft_lexer(cmd);
 	free(cmd);
+	if (!toklist)
+		return (NULL);
 	scanner = ft_scanner_new(toklist);
 	if (scanner == NULL)
 		return (NULL);

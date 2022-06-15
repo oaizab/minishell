@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:17:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 08:23:46 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/15 11:05:50 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef enum e_error
 {
 	ERR_MALLOC,
 	ERR_SYNTAX,
-	ERR_CPAR
+	ERR_CPAR,
+	ERR_QUOTE
 }				t_error;
 
 void	ft_error(t_error err, t_token *token);
