@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 13:05:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 14:52:44 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/16 14:58:38 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ static t_ast_node	*ft_parse_subshell(t_scanner *scanner, int *lvl)
 	return (subshell);
 }
 
+/**
+ * @brief Helper function for ft_parse_command.
+ *
+ * @param subshell: Subshell node address.
+ * @param scanner: Scanner object.
+ * @param lvl: Parenthesis depth level.
+ * @return bool: true if ft_parse_command shall return subshell, false if
+ * ft_parse_command shall return NULL.
+ */
 static bool	ft_parse_command_helper(t_ast_node **subshell, t_scanner *scanner, \
 	int lvl)
 {

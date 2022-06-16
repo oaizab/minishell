@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:34:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 11:34:55 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 14:59:44 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Minishell heredoc.
+ *
+ * @param delimiter: Heredoc delimiter string.
+ * @return char*: Heredoc content string.
+ */
 char	*ft_heredoc(const char *delimiter)
 {
 	char	*str;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:15:02 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/15 11:56:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 15:05:40 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ static bool	ft_separator_token(t_toklist **toklist, char **token_str, \
 	return (true);
 }
 
+/**
+ * @brief Helper function for ft_default_state_helper.
+ *
+ * @param toklist: Token list address.
+ * @param type: Current token type.
+ * @param token_str: Token string address.
+ * @param i: Current index address.
+ * @return bool: true on success, false on failure
+ */
 static bool	ft_default_state_helper(t_toklist **toklist, t_token_type type, \
 	char **token_str, int *i)
 {
@@ -57,10 +66,11 @@ static bool	ft_default_state_helper(t_toklist **toklist, t_token_type type, \
 /**
  * @brief Helper function for default state
  *
- * @param toklist: Token list address
- * @param type: Current token type
- * @param token_str: Token string address
- * @param i: Current character index
+ * @param toklist: Token list address.
+ * @param type: Current token type.
+ * @param token_str: Token string address.
+ * @param i: Current character index.
+ * @return bool: true on success, false on failure.
  */
 bool	ft_default_state(t_toklist **toklist, t_token_type type, \
 	char **token_str, int *i)
