@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:20:06 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 11:09:29 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 14:53:08 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ char		*ft_heredoc(const char *delimiter);
 bool		ft_is_redir(t_token_type type);
 bool		ft_is_cmdlist(t_token_type type);
 bool		ft_is_command(t_token_type type);
+bool		ft_is_closed(t_token_type type);
+bool		ft_is_binary(t_token_type type);
 
 #endif
