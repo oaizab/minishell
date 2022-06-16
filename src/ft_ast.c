@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:19:01 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 11:15:06 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 12:52:52 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ void	display_ast(t_ast_node *root)
 	else if (root->type == NODE_REDIR && root->redir_type != REDIR_HEREDOC)
 		ft_printf("redir %s\n", root->value);
 	else if (root->type == NODE_REDIR && root->redir_type == REDIR_HEREDOC)
-		ft_printf("<< %s\n", root->value);
+		ft_printf("<< %s", root->value);
 	else if (root->type == NODE_NOCMD)
 		ft_printf("NOCMD\n", root->value);
-	display_ast(root->left);
-	display_ast(root->right);
+	(display_ast(root->left), display_ast(root->right));
 }
 
 /**

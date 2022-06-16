@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 13:05:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 16:10:56 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 12:54:57 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,5 @@ t_ast_node	*ft_parse_command(t_scanner *scanner)
 				ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 		return (subshell);
 	}
-	else
-		return (NULL);
+	return (NULL);
 }

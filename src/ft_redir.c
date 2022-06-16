@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 11:18:33 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 12:52:07 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ static t_redir_type	get_redir_type(t_token_type type)
 		return (REDIR_HEREDOC);
 }
 
+static bool	ft_check_heredoc(t_ast_node **redir, t_token *token, \
+	t_ast_node **redirtmp)
+{
+	if ((*redir)->redir_type != REDIR_HEREDOC)
+	{
+		(*redir)->value = ft_strdup(token->lexeme);
+	}
+	else
+		(*redir)->value = ft_heredoc(token->lexeme);
+	if ((*redir)->value == NULL)
+		return (ft_ast_free(*redirtmp), ft_error(ERR_MALLOC, 0), false);
+	return (true);
+}
+
 /**
  * @brief Helper function for ft_parse_redir.
  *
@@ -66,14 +80,8 @@ static bool	ft_parse_redir_helper(t_scanner *scanner, t_ast_node **redir, \
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
 		{
-			if ((*redir)->redir_type != REDIR_HEREDOC)
-			{
-				(*redir)->value = ft_strdup(token->lexeme);
-				if ((*redir)->value == NULL)
-					return (ft_ast_free(*redirtmp), ft_error(ERR_MALLOC, 0), false);
-			}
-			else
-				(*redir)->value = ft_heredoc(token->lexeme);
+			if (!ft_check_heredoc(redir, token, redirtmp))
+				return (false);
 		}
 		else
 			return (ft_ast_free(*redirtmp), ft_error(ERR_SYNTAX, token), false);
@@ -107,10 +115,8 @@ t_ast_node	*ft_parse_redir(t_scanner *scanner)
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
 		{
-			if (redir->redir_type != REDIR_HEREDOC)
-				redir->value = ft_strdup(token->lexeme);
-			else
-				redir->value = ft_heredoc(token->lexeme);
+			if (!ft_check_heredoc(&redir, token, &redirtmp))
+				return (false);
 		}
 		else
 			return (ft_ast_free(redirtmp), ft_error(ERR_SYNTAX, token), NULL);
