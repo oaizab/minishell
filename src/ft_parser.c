@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:20:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 11:07:32 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/16 14:15:44 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_ast_node	*ft_parser(char *cmd)
 		return (NULL);
 	scanner = ft_scanner_new(toklist);
 	if (scanner == NULL)
+		return (NULL);
+	if (ft_scanner_peek(scanner)->type == TOKEN_END)
 		return (NULL);
 	ast = ft_parse_cmdline(scanner);
 	if (ast == NULL)
