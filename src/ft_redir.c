@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:54:58 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 08:10:57 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/16 11:18:33 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,14 @@ static bool	ft_parse_redir_helper(t_scanner *scanner, t_ast_node **redir, \
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
 		{
-			(*redir)->value = ft_strdup(token->lexeme);
-			if ((*redir)->value == NULL)
-				return (ft_ast_free(*redirtmp), ft_error(ERR_MALLOC, 0), false);
+			if ((*redir)->redir_type != REDIR_HEREDOC)
+			{
+				(*redir)->value = ft_strdup(token->lexeme);
+				if ((*redir)->value == NULL)
+					return (ft_ast_free(*redirtmp), ft_error(ERR_MALLOC, 0), false);
+			}
+			else
+				(*redir)->value = ft_heredoc(token->lexeme);
 		}
 		else
 			return (ft_ast_free(*redirtmp), ft_error(ERR_SYNTAX, token), false);
@@ -101,7 +106,12 @@ t_ast_node	*ft_parse_redir(t_scanner *scanner)
 		redir->redir_type = get_redir_type(token->type);
 		token = get_next_token(scanner);
 		if (token->type == TOKEN_WORD)
-			redir->value = ft_strdup(token->lexeme);
+		{
+			if (redir->redir_type != REDIR_HEREDOC)
+				redir->value = ft_strdup(token->lexeme);
+			else
+				redir->value = ft_heredoc(token->lexeme);
+		}
 		else
 			return (ft_ast_free(redirtmp), ft_error(ERR_SYNTAX, token), NULL);
 	}
