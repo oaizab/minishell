@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 15:26:03 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/17 15:26:04 by hhamza           ###   ########.fr       */
+/*   Created: 2022/06/18 17:03:43 by oaizab            #+#    #+#             */
+/*   Updated: 2022/06/18 17:04:14 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief Helper function for ft_parse_subshell.
+ *
+ * @param scanner: Scanner structure.
+ * @param subshell: Subshell Node.
+ * @param lvl: Level of parenthesis.
+ * @return t_ast_node*: Subshell Node, NULL if failed.
+ */
+
+static t_ast_node	*ft_parse_subshell_helper(t_scanner *scanner, \
+	t_ast_node *subshell, int *lvl)
+{
+	if (ft_scanner_peek(scanner)->type != TOKEN_CPAR)
+	{
+		*lvl = 0;
+		return (ft_ast_free(subshell), ft_error(ERR_CPAR, NULL), NULL);
+	}
+	get_next_token(scanner);
+	if (ft_is_redir(ft_scanner_peek(scanner)->type))
+	{
+		subshell->left = ft_parse_redir(scanner);
+		if (subshell->left == NULL)
+			return (ft_ast_free(subshell), NULL);
+	}
+	(*lvl)--;
+	return (subshell);
+}
 
 /**
  * @brief Parse a subshell
@@ -25,25 +53,22 @@ static t_ast_node	*ft_parse_subshell(t_scanner *scanner, int *lvl)
 
 	get_next_token(scanner);
 	if (ft_is_command(ft_scanner_peek(scanner)->type))
-		subshell = ft_parse_cmdline(scanner);
+	{
+		subshell = ft_ast_node_new(NODE_SUBSHELL, NULL);
+		subshell->right = ft_parse_cmdline(scanner);
+	}
 	else
 	{
 		*lvl = 0;
 		return (ft_error(ERR_SYNTAX, ft_scanner_peek(scanner)), NULL);
 	}
-	if (subshell == NULL)
+	if (subshell->right == NULL)
 	{
 		*lvl = 0;
+		ft_ast_free(subshell);
 		return (NULL);
 	}
-	if (ft_scanner_peek(scanner)->type != TOKEN_CPAR)
-	{
-		*lvl = 0;
-		return (ft_ast_free(subshell), ft_error(ERR_CPAR, NULL), NULL);
-	}
-	get_next_token(scanner);
-	(*lvl)--;
-	return (subshell);
+	return (ft_parse_subshell_helper(scanner, subshell, lvl));
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ast.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 09:31:33 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 08:21:13 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/18 16:13:46 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef enum e_node_type
 	NODE_AND,
 	NODE_OR,
 	NODE_HEREDOC,
-	NODE_NOCMD
+	NODE_NOCMD,
+	NODE_SUBSHELL
 }				t_node_type;
 
 typedef enum e_redir_type
