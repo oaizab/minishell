@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:20:22 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 11:06:20 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/19 08:33:28 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static void	ft_syntax_error(t_token *token)
  */
 void	ft_error(t_error err, t_token *token)
 {
+	g_exit_status = 258;
 	if (err == ERR_MALLOC)
-	{
 		ft_putendl_fd("Error: malloc failed", 2);
-	}
 	else if (err == ERR_SYNTAX)
 		ft_syntax_error(token);
 	else if (err == ERR_CPAR)

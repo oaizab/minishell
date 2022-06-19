@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:41:21 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/15 07:13:19 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/19 08:31:47 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_status = 0;
 
 /**
  * @brief Restore Ctrl-C echo, Clear command history, and exit.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/15 09:26:33 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/19 08:37:06 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 /**
  * @brief Minishell main header file.
  *
+ * @globals:
+ *  * g_exit_status: Exit status.
+ *
  * @features:
  *  * ft_read_cmd: Read command.
  *  * ft_install_signal: Install custom signal handlers.
@@ -44,6 +47,8 @@
  *  * ft_show_ctrl_c: Restore Ctrl+C echo.
  *  * ft_exit: Exit minishell.
  */
+
+extern int	g_exit_status;
 
 char	*ft_read_cmd(void);
 
