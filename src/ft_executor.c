@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:46:53 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/21 16:04:59 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/22 18:28:40 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	ft_execute(t_ast_node *root, t_env *env, t_env *export)
 {
 	(void) export;
-	if (root->type == NODE_CMD || (root->type == NODE_REDIR && root->redir_type != REDIR_HEREDOC))
+	if (root->type == NODE_CMD || (root->type == NODE_REDIR \
+		&& root->redir_type != REDIR_HEREDOC))
 	{
 		ft_expander(root, env);
 	}
