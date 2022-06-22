@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/22 18:20:20 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/22 18:50:03 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,22 @@ static char	*ft_get_var_name(char *str)
 	char	*var;
 
 	i = 0;
-	var = NULL;
-	if (str[0] != '_' && !ft_isalpha(str[0]))
+	var = ft_strdup("");
+	if (var == NULL)
 		return (NULL);
+	if (str[0] != '_' && !ft_isalpha(str[0]))
+		return (var);
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
 		var = ft_append_char(var, str[i]);
+		if (var == NULL)
+			return (NULL);
 		i++;
 	}
 	return (var);
 }
 
-void	ft_heredoc_expander(t_ast_node *node, t_env *env)
+bool	ft_heredoc_expander(t_ast_node *node, t_env *env)
 {
 	char	*str;
 	char	*var;
@@ -43,7 +47,9 @@ void	ft_heredoc_expander(t_ast_node *node, t_env *env)
 		if (node->value[i] == '$')
 		{
 			var = ft_get_var_name(&node->value[i + 1]);
-			if (!var)
+			if (var == NULL)
+				return (free(str), false);
+			if (var[0] == '\0')
 				str = ft_append_char(str, '$');
 			else
 			{
@@ -52,8 +58,10 @@ void	ft_heredoc_expander(t_ast_node *node, t_env *env)
 				if (!tmp)
 					tmp = "";
 				str = ft_append_str(str, tmp);
-				free(var);
 			}
+			free(var);
+			if (str == NULL)
+				return (false);
 		}
 		else
 			str = ft_append_char(str, node->value[i]);
@@ -61,6 +69,7 @@ void	ft_heredoc_expander(t_ast_node *node, t_env *env)
 	}
 	free(node->value);
 	node->value = str;
+	return (true);
 }
 
 static char	**ft_split_args(char *value)
@@ -148,17 +157,17 @@ static char	*ft_expand_str(char *value, t_env *env)
 			if (value[i] == '$')
 			{
 				var = ft_get_var_name(&value[i + 1]);
-				if (var != NULL)
+				if (var[0] != '\0')
 				{
 					i += ft_strlen(var);
 					tmp = ft_env_get(env, var);
 					if (tmp == NULL)
 						tmp = "";
 					str = ft_append_str(str, tmp);
-					free(var);
 				}
 				else
 					str = ft_append_char(str, '$');
+				free(var);
 			}
 			else
 				str = ft_append_char(str, value[i]);
@@ -172,17 +181,17 @@ static char	*ft_expand_str(char *value, t_env *env)
 			if (value[i] == '$')
 			{
 				var = ft_get_var_name(&value[i + 1]);
-				if (var != NULL)
+				if (var[0] != '\0')
 				{
 					i += ft_strlen(var);
 					tmp = ft_env_get(env, var);
 					if (tmp == NULL)
 						tmp = "";
 					str = ft_append_str(str, tmp);
-					free(var);
 				}
 				else
 					str = ft_append_char(str, '$');
+				free(var);
 			}
 			else
 				str = ft_append_char(str, value[i]);
