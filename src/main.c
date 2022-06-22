@@ -30,11 +30,15 @@ void	ft_print_toklist(t_toklist *toklist)
 	printf("\n");
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char		*cmd;
 	t_ast_node	*ast;
+	t_env		*env_list;
 
+	env_list = ft_env_init(env);
+	(void) argc, (void) argv;
+	ft_env_add(&env_list, "A", "a   b       c");
 	ft_hide_ctrl_c();
 	ft_install_signals();
 	while (1)

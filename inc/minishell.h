@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/19 08:37:06 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/21 13:47:14 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "ft_ast.h"
 # include "ft_parser.h"
 # include "ft_error.h"
+# include "ft_env.h"
 
 /**
  * @brief Minishell main header file.
