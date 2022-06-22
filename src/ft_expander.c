@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/22 14:28:35 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/22 18:20:20 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,12 @@ static char	**ft_split_args(char *value)
 	{
 		split[j] = str;
 		j++;
+	}
+	if (!split[0])
+	{
+		split[0] = ft_strdup("");
+		if (!split[0])
+			return (NULL); // TODO: free split array
 	}
 	return (split);
 }
