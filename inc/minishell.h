@@ -33,6 +33,8 @@
 # include "ft_parser.h"
 # include "ft_error.h"
 # include "ft_env.h"
+# include "ft_expander.h"
+# include "ft_executor.h"
 
 /**
  * @brief Minishell main header file.
