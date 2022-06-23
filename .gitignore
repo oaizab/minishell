@@ -54,3 +54,5 @@ dkms.conf
 minishell
 .vscode/
 .*.swp
+
+test/
