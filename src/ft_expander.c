@@ -33,45 +33,7 @@ static char	*ft_get_var_name(char *str)
 	return (var);
 }
 
-bool	ft_heredoc_expander(t_ast_node *node, t_env *env)
-{
-	char	*str;
-	char	*var;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	str = NULL;
-	while (node->value[i])
-	{
-		if (node->value[i] == '$')
-		{
-			var = ft_get_var_name(&node->value[i + 1]);
-			if (var == NULL)
-				return (free(str), false);
-			if (var[0] == '\0')
-				str = ft_append_char(str, '$');
-			else
-			{
-				i += ft_strlen(var);
-				tmp = ft_env_get(env, var);
-				if (!tmp)
-					tmp = "";
-				str = ft_append_str(str, tmp);
-			}
-			free(var);
-			if (str == NULL)
-				return (false);
-		}
-		else
-			str = ft_append_char(str, node->value[i]);
-		i++;
-	}
-	free(node->value);
-	node->value = str;
-	return (true);
-}
-
+char	**ft_split_args(char *value)
 static char	**ft_split_args(char *value)
 {
 	t_state	state;
