@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/23 16:16:30 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/23 17:58:29 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	ft_heredoc_expander(t_ast_node *node, t_env *env)
 	char	*str;
 	char	*var;
 	char	*tmp;
-	int	i;
+	int		i;
 
 	i = 0;
 	str = NULL;
@@ -139,12 +139,15 @@ static char	**ft_split_args(char *value)
 	return (split);
 }
 
-bool ft_check_pattern(char *str, char *pattern)
+bool	ft_check_pattern(char *str, char *pattern)
 {
-	int i = 0;
-	int j = 0;
-	int ilast = -1;
+	int	i;
+	int	j;
+	int	ilast;
 
+	i = 0;
+	j = 0;
+	ilast = -1;
 	if (str[0] == '.' && pattern[0] != '.')
 		return (false);
 	while (str[i] != '\0')
@@ -178,8 +181,8 @@ bool ft_check_pattern(char *str, char *pattern)
 
 int	ft_file_count(char *path)
 {
-	DIR *dir;
-	int count;
+	DIR	*dir;
+	int	count;
 
 	count = 0;
 	dir = opendir(path);
@@ -191,20 +194,22 @@ int	ft_file_count(char *path)
 
 char	*ft_expand_asterisk(char *pattern)
 {
-	int	i;
-	DIR *dir;
-	struct dirent *file;
-	char **files;
-	char *str;
+	int				i;
+	DIR				*dir;
+	struct dirent	*file;
+	char			**files;
+	char			*str;
 
 	i = ft_file_count(".");
 	files = calloc(i + 1, sizeof(char *));
 	i = 0;
 	dir = opendir(".");
-	while ((file = readdir(dir)) != NULL)
+	file = readdir(dir);
+	while (file != NULL)
 	{
 		if (ft_check_pattern(file->d_name, pattern))
 			files[i++] = ft_strdup(file->d_name);
+		file = readdir(dir);
 	}
 	closedir(dir);
 	i = 0;
@@ -233,7 +238,7 @@ static char	*ft_expand_str(char *value, t_env *env)
 	i = 0;
 	str = NULL;
 	state = STATE_DEFAULT;
-	while(value[i] != '\0')
+	while (value[i] != '\0')
 	{
 		if (state == STATE_DEFAULT)
 		{
@@ -370,7 +375,7 @@ void	ft_asterisk_expand(char **value)
 	}
 	str = ft_append_char(str, ' ');
 	free(tmp);
-free(*value);
+	free(*value);
 	*value = str;
 }
 
@@ -379,7 +384,7 @@ void	ft_expander(t_ast_node *node, t_env *env)
 	char	**split;
 	char	**args;
 	char	*str;
-	int  	i;
+	int		i;
 	int		j;
 	int		k;
 
