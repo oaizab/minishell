@@ -6,13 +6,13 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/23 17:58:29 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/23 20:46:57 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_get_var_name(char *str)
+char	*ft_get_var_name(char *str)
 {
 	int		i;
 	char	*var;
@@ -34,7 +34,6 @@ static char	*ft_get_var_name(char *str)
 }
 
 char	**ft_split_args(char *value)
-static char	**ft_split_args(char *value)
 {
 	t_state	state;
 	char	**split;
