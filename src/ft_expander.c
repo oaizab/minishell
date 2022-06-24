@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/23 20:46:57 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/24 07:37:30 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,95 +100,7 @@ char	**ft_split_args(char *value)
 	return (split);
 }
 
-bool	ft_check_pattern(char *str, char *pattern)
-{
-	int	i;
-	int	j;
-	int	ilast;
-
-	i = 0;
-	j = 0;
-	ilast = -1;
-	if (str[0] == '.' && pattern[0] != '.')
-		return (false);
-	while (str[i] != '\0')
-	{
-		if (pattern[j] == '\0' && (str[i] == '\0' || pattern[j - 1] == '*'))
-			return (true);
-		else if (pattern[j] == '*')
-		{
-			while (pattern[j] == '*')
-				j++;
-			ilast = j;
-		}
-		if (str[i] == pattern[j])
-		{
-			i++;
-			j++;
-		}
-		else
-		{
-			if (ilast == -1)
-				return (false);
-			if (ilast == j)
-				i++;
-			j = ilast;
-		}
-	}
-	if (pattern[j] == '\0' || (pattern[j] == '*' && pattern[j + 1] == '\0'))
-		return (true);
-	return (false);
-}
-
-int	ft_file_count(char *path)
-{
-	DIR	*dir;
-	int	count;
-
-	count = 0;
-	dir = opendir(path);
-	while (readdir(dir) != NULL)
-		count++;
-	closedir(dir);
-	return (count);
-}
-
-char	*ft_expand_asterisk(char *pattern)
-{
-	int				i;
-	DIR				*dir;
-	struct dirent	*file;
-	char			**files;
-	char			*str;
-
-	i = ft_file_count(".");
-	files = calloc(i + 1, sizeof(char *));
-	i = 0;
-	dir = opendir(".");
-	file = readdir(dir);
-	while (file != NULL)
-	{
-		if (ft_check_pattern(file->d_name, pattern))
-			files[i++] = ft_strdup(file->d_name);
-		file = readdir(dir);
-	}
-	closedir(dir);
-	i = 0;
-	str = NULL;
-	if (files[0] == NULL)
-		return (free(files), ft_strdup(pattern));
-	while (files[i])
-	{
-		str = ft_append_str(str, files[i]);
-		free(files[i++]);
-		if (files[i])
-			str = ft_append_char(str, ' ');
-	}
-	free(files);
-	return (str);
-}
-
-static char	*ft_expand_str(char *value, t_env *env)
+char	*ft_expand_str(char *value, t_env *env)
 {
 	char	*str;
 	char	*var;
@@ -256,88 +168,6 @@ static char	*ft_expand_str(char *value, t_env *env)
 		i++;
 	}
 	return (str);
-}
-
-void	ft_asterisk_expand(char **value)
-{
-	char	*str;
-	char	*tmp;
-	char	*word;
-	int		i;
-	bool	is_asterisk;
-	t_state	state;
-	bool	no_expand;
-
-	is_asterisk = false;
-	no_expand = false;
-	word = NULL;
-	str = NULL;
-	state = STATE_DEFAULT;
-	i = 0;
-	while ((*value)[i] != '\0')
-	{
-		if (state == STATE_DEFAULT)
-		{
-			if ((*value)[i] == ' ')
-			{
-				if (word)
-				{
-					if (is_asterisk)
-					{
-						tmp = ft_expand_asterisk(word);
-						free(word);
-					}
-					else
-						tmp = word;
-					str = ft_append_str(str, tmp);
-				}
-				str = ft_append_char(str, ' ');
-				free(tmp);
-				no_expand = false;
-				is_asterisk = false;
-				word = NULL;
-			}
-			else if ((*value)[i] == '*' && no_expand == false)
-			{
-				is_asterisk = true;
-				word = ft_append_char(word, '*');
-			}
-			else
-				word = ft_append_char(word, (*value)[i]);
-		}
-		else if (state == STATE_DQUOTE)
-		{
-			no_expand = true;
-			is_asterisk = false;
-			if ((*value)[i] == '"')
-				state = STATE_DEFAULT;
-			word = ft_append_char(word, (*value)[i]);
-		}
-		else if (state == STATE_QUOTE)
-		{
-			no_expand = true;
-			is_asterisk = false;
-			if ((*value)[i] == '\'')
-				state = STATE_DEFAULT;
-			word = ft_append_char(word, (*value)[i]);
-		}
-		i++;
-	}
-	if (word)
-	{
-		if (is_asterisk)
-		{
-			tmp = ft_expand_asterisk(word);
-			free(word);
-		}
-		else
-			tmp = word;
-		str = ft_append_str(str, tmp);
-	}
-	str = ft_append_char(str, ' ');
-	free(tmp);
-	free(*value);
-	*value = str;
 }
 
 void	ft_expander(t_ast_node *node, t_env *env)
