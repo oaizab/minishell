@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/23 14:55:45 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/24 10:17:48 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "ft_parser.h"
 # include "ft_error.h"
 # include "ft_env.h"
+# include "ft_builtin.h"
 # include "ft_expander.h"
 # include "ft_executor.h"
 
