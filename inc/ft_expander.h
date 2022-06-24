@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:43:47 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/24 08:57:48 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/24 20:08:58 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	ft_heredoc_expander(t_ast_node *node, t_env *env);
 char	*ft_get_var_name(char *str);
 char	*ft_expand_str(char *value, t_env *env);
 
+char	**ft_split_args(char *value);
 void	ft_expand_asterisk(char **value);
 char	*ft_get_matches(char *pattern);
 int		ft_file_count(char *path);

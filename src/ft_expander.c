@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/24 09:27:22 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/24 20:08:35 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,73 +31,6 @@ char	*ft_get_var_name(char *str)
 		i++;
 	}
 	return (var);
-}
-
-char	**ft_split_args(char *value)
-{
-	t_state	state;
-	char	**split;
-	int		i;
-	char	*str;
-	int		j;
-
-	i = 0;
-	j = 0;
-	split = ft_calloc(ARG_MAX, sizeof(char *));
-	state = STATE_DEFAULT;
-	str = NULL;
-	if (!split)
-		return (NULL);
-	while (value[i])
-	{
-		if (state == STATE_DEFAULT)
-		{
-			if (value[i] == '\'')
-				state = STATE_QUOTE;
-			else if (value[i] == '"')
-				state = STATE_DQUOTE;
-			else if (value[i] == ' ')
-			{
-				if (str != NULL)
-				{
-					split[j] = str;
-					str = NULL;
-					j++;
-				}
-			}
-			else
-			{
-				str = ft_append_char(str, value[i]);
-			}
-		}
-		else if (state == STATE_DQUOTE)
-		{
-			if (value[i] == '"')
-				state = STATE_DEFAULT;
-			else
-				str = ft_append_char(str, value[i]);
-		}
-		else if (state == STATE_QUOTE)
-		{
-			if (value[i] == '\'')
-				state = STATE_DEFAULT;
-			else
-				str = ft_append_char(str, value[i]);
-		}
-		i++;
-	}
-	if (str != NULL)
-	{
-		split[j] = str;
-		j++;
-	}
-	if (!split[0])
-	{
-		split[0] = ft_strdup("");
-		if (!split[0])
-			return (NULL); // TODO: free split array
-	}
-	return (split);
 }
 
 char	*ft_expand_str(char *value, t_env *env)
