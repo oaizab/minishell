@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:19:01 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/16 12:52:52 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:34:19 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	display_ast(t_ast_node *root)
 		ft_printf("%s ", root->value);
 		i = 1;
 		while (root->args[i] != NULL)
-			ft_printf("%s ", root->args[i++]);
+			ft_printf("[%s] ", root->args[i++]);
 		ft_printf("\n");
 	}
 	else if (root->type == NODE_PIPE)
