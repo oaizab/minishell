@@ -12,83 +12,130 @@
 
 #include "minishell.h"
 
+/**
+ * @brief Helper function for ft_expand_asterisk when a word is gathered,
+ * the word will expanded if it contains an asterisk
+ *
+ * @param word: Address of the word gathered so far
+ * @param str: Address of string that will hold the expand result
+ * @param is_asterisk: Address of boolean that indicates if the word contains
+ * an asterisk or not
+ * @param no_expand: Address of boolean that indicates if the word should be
+ * expanded or not
+ */
+static void	ft_expand_word(char **word, char **str, int *expand)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (*word)
+	{
+		if (*expand == 1)
+		{
+			tmp = ft_get_matches(*word);
+			free(*word);
+		}
+		else
+			tmp = *word;
+		*str = ft_append_str(*str, tmp);
+	}
+	*str = ft_append_char(*str, ' ');
+	free(tmp);
+	*expand = 0;
+	word = NULL;
+}
+
+/**
+ * @brief Helper function for default state on ft_expand_asterisk
+ *
+ * @param curr_char: Current character
+ * @param no_expand: Boolean indicating if expansion shall be performed or not
+ * @param is_asterisk: Address if boolean indicating if the word contains an
+ *  asterisk or not
+ * @param word: Address of the word gathered so far
+ */
+static void	ft_default_state_help(char curr_char, int *expand, char **word)
+{
+	if (curr_char == '*' && *expand != 2)
+	{
+		*expand = 1;
+		*word = ft_append_char(*word, '*');
+	}
+	else
+		*word = ft_append_char(*word, curr_char);
+}
+
+/**
+ * @brief Helper function for single/double quote state on ft_expand_asterisk
+ *
+ * @param expand: Address of boolean indicating if expansion shall be performed
+ * @param curr_char: Current character
+ * @param state: State address
+ * @param word: Address of the word gathered so far
+ */
+static void	ft_state_quote_helper(int *expand, char curr_char, t_state *state, \
+	char **word)
+{
+	if (*state == STATE_DQUOTE)
+	{
+		*expand = 2;
+		if (curr_char == '"')
+			*state = STATE_DEFAULT;
+		*word = ft_append_char(*word, curr_char);
+	}
+	else if (*state == STATE_QUOTE)
+	{
+		*expand = 2;
+		if (curr_char == '\'')
+			*state = STATE_DEFAULT;
+		*word = ft_append_char(*word, curr_char);
+	}
+}
+
+/**
+ * @brief Initializer function for ft_expand_asterisk
+ *
+ * @param expand: Address of boolean indicating if expansion shall be performed
+ * @param word: Address of the word gathered so far
+ * @param str: Address of string that will hold the expand result
+ * @param state: State address
+ */
+static void	ft_initialize(int *expand, char **word, char **str, t_state *state)
+{
+	*expand = 0;
+	*word = NULL;
+	*str = NULL;
+	*state = STATE_DEFAULT;
+}
+
+/**
+ * @brief Expand asterisks.
+ *
+ * @param value: Address of AST node value
+ */
 void	ft_expand_asterisk(char **value)
 {
 	char	*str;
-	char	*tmp;
 	char	*word;
 	int		i;
-	bool	is_asterisk;
 	t_state	state;
-	bool	no_expand;
+	int		expand;
 
-	is_asterisk = false;
-	no_expand = false;
-	word = NULL;
-	str = NULL;
-	state = STATE_DEFAULT;
+	ft_initialize(&expand, &word, &str, &state);
 	i = 0;
 	while ((*value)[i] != '\0')
 	{
 		if (state == STATE_DEFAULT)
 		{
 			if ((*value)[i] == ' ')
-			{
-				if (word)
-				{
-					if (is_asterisk)
-					{
-						tmp = ft_get_matches(word);
-						free(word);
-					}
-					else
-						tmp = word;
-					str = ft_append_str(str, tmp);
-				}
-				str = ft_append_char(str, ' ');
-				free(tmp);
-				no_expand = false;
-				is_asterisk = false;
-				word = NULL;
-			}
-			else if ((*value)[i] == '*' && no_expand == false)
-			{
-				is_asterisk = true;
-				word = ft_append_char(word, '*');
-			}
-			else
-				word = ft_append_char(word, (*value)[i]);
-		}
-		else if (state == STATE_DQUOTE)
-		{
-			no_expand = true;
-			is_asterisk = false;
-			if ((*value)[i] == '"')
-				state = STATE_DEFAULT;
-			word = ft_append_char(word, (*value)[i]);
-		}
-		else if (state == STATE_QUOTE)
-		{
-			no_expand = true;
-			is_asterisk = false;
-			if ((*value)[i] == '\'')
-				state = STATE_DEFAULT;
-			word = ft_append_char(word, (*value)[i]);
-		}
-		i++;
-	}
-	if (word)
-	{
-		if (is_asterisk)
-		{
-			tmp = ft_get_matches(word);
-			free(word);
+				ft_expand_word(&word, &str, &expand);
+			ft_default_state_help((*value)[i], &expand, &word);
 		}
 		else
-			tmp = word;
-		str = ft_append_str(str, tmp);
-		free(tmp);
+			ft_state_quote_helper(&expand, (*value)[i], &state, &word);
+		i++;
 	}
+	ft_expand_word(&word, &str, &expand);
 	if (str == NULL)
 		return ;
 	free(*value);
