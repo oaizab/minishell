@@ -87,9 +87,8 @@ void	ft_expand_asterisk(char **value)
 		else
 			tmp = word;
 		str = ft_append_str(str, tmp);
+		free(tmp);
 	}
-	str = ft_append_char(str, ' ');
-	free(tmp);
 	if (str == NULL)
 		return ;
 	free(*value);
