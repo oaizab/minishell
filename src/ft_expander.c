@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/24 07:37:30 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/24 09:27:22 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	ft_expander(t_ast_node *node, t_env *env)
 	i = 0;
 	args = ft_calloc(ARG_MAX, sizeof(char *));
 	str = ft_expand_str(node->value, env);
-	ft_asterisk_expand(&str);
+	ft_expand_asterisk(&str);
 	split = ft_split_args(str);
 	free(str);
 	if (!split)
@@ -201,7 +201,7 @@ void	ft_expander(t_ast_node *node, t_env *env)
 	while (node->args && node->args[j] != NULL)
 	{
 		str = ft_expand_str(node->args[j], env);
-		ft_asterisk_expand(&str);
+		ft_expand_asterisk(&str);
 		split = ft_split_args(str);
 		free(str);
 		if (!split)
