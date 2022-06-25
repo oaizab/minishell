@@ -23,7 +23,7 @@
  * @param no_expand: Address of boolean that indicates if the word should be
  * expanded or not
  */
-static void	ft_expand_word(char **word, char **str, int *expand)
+static void	ft_expand_word(char **word, char **str, int *expand, bool end)
 {
 	char	*tmp;
 
@@ -39,6 +39,8 @@ static void	ft_expand_word(char **word, char **str, int *expand)
 			tmp = *word;
 		*str = ft_append_str(*str, tmp);
 	}
+	if (!end)
+		*str = ft_append_char(*str, ' ');
 	free(tmp);
 	*expand = 0;
 	*word = NULL;
@@ -121,20 +123,20 @@ void	ft_expand_asterisk(char **value)
 	int		expand;
 
 	ft_initialize(&expand, &word, &str, &state);
-	i = 0;
-	while ((*value)[i] != '\0')
+	i = -1;
+	while ((*value)[++i] != '\0')
 	{
 		if (state == STATE_DEFAULT)
 		{
 			if ((*value)[i] == ' ')
-				ft_expand_word(&word, &str, &expand);
-			ft_default_state_help((*value)[i], &expand, &word);
+				ft_expand_word(&word, &str, &expand, false);
+			else
+				ft_default_state_help((*value)[i], &expand, &word);
 		}
 		else
 			ft_state_quote_helper(&expand, (*value)[i], &state, &word);
-		i++;
 	}
-	ft_expand_word(&word, &str, &expand);
+	ft_expand_word(&word, &str, &expand, true);
 	if (str == NULL)
 		return ;
 	free(*value);

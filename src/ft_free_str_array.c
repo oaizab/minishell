@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 20:36:18 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/24 20:42:13 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/25 11:36:53 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	ft_free_str_array(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (arr == NULL)
