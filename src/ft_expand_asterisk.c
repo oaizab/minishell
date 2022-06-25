@@ -42,7 +42,7 @@ static void	ft_expand_word(char **word, char **str, int *expand)
 	*str = ft_append_char(*str, ' ');
 	free(tmp);
 	*expand = 0;
-	word = NULL;
+	*word = NULL;
 }
 
 /**
