@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/25 18:18:27 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/26 14:56:15 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	ft_expander_helper(t_ast_node *node, t_env *env, char **args, int k)
 	while (node->args && node->args[j] != NULL)
 	{
 		str = ft_expand_str(node->args[j], env);
-		ft_expand_asterisk(&str);
+		if (node->type != NODE_REDIR)
+			ft_expand_asterisk(&str);
 		split = ft_split_args(str);
 		free(str);
 		if (!split)
@@ -81,25 +82,25 @@ void	ft_expander(t_ast_node *node, t_env *env)
 	char	**split;
 	char	**args;
 	char	*str;
-	int		i;
-	int		k;
+	int		i[2];
 
-	i = 0;
+	i[0] = 0;
 	args = ft_calloc(ARG_MAX, sizeof(char *));
 	if (args == NULL)
 		return ;
 	str = ft_expand_str(node->value, env);
-	ft_expand_asterisk(&str);
+	if (node->type != NODE_REDIR)
+		ft_expand_asterisk(&str);
 	split = ft_split_args(str);
 	free(str);
 	if (!split)
 		return ;
 	free(node->value);
 	node->value = ft_strdup(split[0]);
-	k = 0;
-	while (split[i] != NULL)
-		args[k++] = split[i++];
-	(free(split), ft_expander_helper(node, env, args, k));
+	i[1] = 0;
+	while (split[i[0]] != NULL)
+		args[i[1]++] = split[i[0]++];
+	(free(split), ft_expander_helper(node, env, args, i[1]));
 	if (node->args)
 		ft_free_args(node->args);
 	node->args = args;
