@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/25 17:46:29 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/25 18:18:27 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_get_var_name(char *str)
 	char	*var;
 
 	i = 0;
+	if (str[0] == '?')
+		return (ft_strdup("?"));
 	var = ft_strdup("");
 	if (var == NULL)
 		return (NULL);

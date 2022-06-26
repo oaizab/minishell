@@ -6,11 +6,25 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:39:27 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/25 18:05:08 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/26 10:03:16 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_var_helper(char **tmp, char *var, t_env *env)
+{
+	if (var[0] == '?')
+		*tmp = ft_itoa(g_exit_status);
+	else
+	{
+		*tmp = ft_env_get(env, var);
+		if (*tmp != NULL)
+			*tmp = ft_strdup(*tmp);
+	}
+	if (*tmp == NULL)
+		*tmp = ft_strdup("");
+}
 
 static void	ft_state_helper(char *curr_char, int *i, char **str, \
 	t_env *env)
@@ -24,14 +38,12 @@ static void	ft_state_helper(char *curr_char, int *i, char **str, \
 		if (var[0] != '\0')
 		{
 			*i += ft_strlen(var);
-			tmp = ft_env_get(env, var);
-			if (tmp == NULL)
-				tmp = "";
+			ft_var_helper(&tmp, var, env);
 			*str = ft_append_str(*str, tmp);
+			(free(var), free (tmp));
 		}
 		else
-			*str = ft_append_char(*str, '$');
-		free(var);
+			*str = (free(var), ft_append_char(*str, '$'));
 	}
 	else
 		*str = ft_append_char(*str, *curr_char);
