@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/25 18:24:37 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/26 12:05:46 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static char	*ft_get_prompt(void)
 		basename++;
 	else
 		basename = path;
-	basename = ft_strdup(basename);
+	if (*basename == '\0')
+		basename = ft_strdup("/");
+	else
+		basename = ft_strdup(basename);
 	free(path);
 	prompt = ft_append_str(prompt, basename);
 	free(basename);
