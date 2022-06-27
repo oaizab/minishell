@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 16:36:12 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 20:33:52 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 
 bool	ft_check_command(t_ast_node *node, t_env *env)
 {
+	if (ft_is_builtin(node->value))
+		return (false);
 	if (node->value[0] != '/' && ft_strncmp(node->value, "./", 2) != 0)
 		return (ft_find_command(node, env));
 	if (access(node->value, F_OK) == 0)
@@ -97,11 +99,11 @@ bool	ft_check_command(t_ast_node *node, t_env *env)
 	return (false);
 }
 
-void	ft_execute_cmd(t_ast_node *node, t_env *env)
+void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 {
 	char	**envp;
 
-	if (!ft_expand_command(node, env))
+	if (!ft_expand_command(node, env->env))
 	{
 		ft_execute_redir(node);
 		return ;
@@ -109,17 +111,28 @@ void	ft_execute_cmd(t_ast_node *node, t_env *env)
 	ft_execute_redir(node);
 
 	ft_signals_ign();
-	if (ft_check_command(node, env) && fork() == 0)
+	if (ft_check_command(node, env->env))
 	{
-		ft_restore_ctrl_c();
-		envp = ft_env_to_array(env);
-		ft_uninstall_signals();
-		dup2(node->in, STDIN_FILENO);
-		dup2(node->out, STDOUT_FILENO);
+		if (fork() == 0)
+		{
+			ft_restore_ctrl_c();
+			envp = ft_env_to_array(env->env);
+			ft_uninstall_signals();
+			dup2(node->in, STDIN_FILENO);
+			dup2(node->out, STDOUT_FILENO);
+			if (node->in != STDIN_FILENO)
+				close(node->in);
+			if (node->out != STDOUT_FILENO)
+				close(node->out);
+			exit(execve(node->value, node->args, envp));
+		}
+	}
+	else
+	{
+		ft_execute_builtin(node, env);
 		if (node->in != STDIN_FILENO)
 			close(node->in);
 		if (node->out != STDOUT_FILENO)
 			close(node->out);
-		exit(execve(node->value, node->args, envp));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:46:53 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 18:36:15 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 20:30:53 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_execute_commande(t_ast_node *node, t_ft_env *env)
 {
 	if (node->type == NODE_CMD)
 	{
-		ft_execute_cmd(node, env->env);
+		ft_execute_cmd(node, env);
 	}
 	else if (node->type == NODE_SUBSHELL)
 	{
