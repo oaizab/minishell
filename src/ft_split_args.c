@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 20:07:56 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/26 10:20:20 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/26 20:22:01 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ char	**ft_split_args(char *value)
 			else
 				str = ft_append_char(str, value[i]);
 		}
-		ft_quote_state_helper(&state, value[i], &str);
+		else
+			ft_quote_state_helper(&state, value[i], &str);
 	}
 	return (ft_split_args_end(str, split, &j));
 }

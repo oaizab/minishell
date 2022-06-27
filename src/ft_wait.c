@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.h                                      :+:      :+:    :+:   */
+/*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 13:44:00 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 13:29:46 by oaizab           ###   ########.fr       */
+/*   Created: 2022/06/27 07:24:40 by oaizab            #+#    #+#             */
+/*   Updated: 2022/06/27 09:14:29 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXECUTOR_H
-# define FT_EXECUTOR_H
+#include "minishell.h"
 
-void	ft_executor(t_ast_node *root, t_ft_env *env);
-bool	ft_execute_redir(t_ast_node *node);
-void	ft_execute_cmd(t_ast_node *node, t_env *env);
+static void	ft_psignal(int sig)
+{
+	if (sig == SIGINT)
+		ft_putstr("\n");
+	if (sig == SIGQUIT)
+		ft_putstr("Quit: 3\n");
+}
 
-#endif
+void	ft_wait(void)
+{
+	int		status;
+
+	while (wait(&status) != -1)
+	{
+		if (WIFEXITED(status))
+		{
+			g_exit_status = WEXITSTATUS(status);
+		}
+		else if (WIFSIGNALED(status))
+		{
+			ft_psignal(WTERMSIG(status));
+			g_exit_status = 128 + WTERMSIG(status);
+		}
+	}
+}

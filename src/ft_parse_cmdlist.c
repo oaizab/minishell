@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_cmdlist.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:25:45 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/17 15:25:46 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/26 13:31:53 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ t_ast_node	*ft_parse_cmdlist(t_scanner *scanner)
 		cmdlist = cmdtmp->left;
 		cmdtmp->left = NULL;
 		return (ft_ast_free(cmdtmp), cmdlist);
+	}
+	else
+	{
+		cmdtmp->in = STDIN_FILENO;
+		cmdtmp->out = STDOUT_FILENO;
 	}
 	return (cmdtmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/24 20:37:58 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 14:41:11 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <signal.h>
 # include <termios.h>
 # include <dirent.h>
+# include <fcntl.h>
+# include <errno.h>
 
 # include "libft.h"
 # include "ft_lexer.h"
@@ -59,6 +61,9 @@ char	*ft_read_cmd(void);
 
 void	ft_install_signals(void);
 void	ft_uninstall_signals(void);
+void	ft_signals_ign(void);
+
+void	ft_wait(void);
 
 void	ft_hide_ctrl_c(void);
 void	ft_restore_ctrl_c(void);

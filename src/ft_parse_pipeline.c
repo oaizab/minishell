@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:26:09 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/17 15:26:10 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 13:33:17 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,9 @@ t_ast_node	*ft_parse_pipeline(t_scanner *scanner)
 	if (ft_parse_pipeline_helper(scanner, pipeline, &pipetmp) == false)
 		return (NULL);
 	else
+	{
+		pipeline->in = STDIN_FILENO;
+		pipeline->out = STDOUT_FILENO;
 		return (pipeline);
+	}
 }
