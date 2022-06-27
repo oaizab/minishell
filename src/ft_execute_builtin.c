@@ -32,7 +32,7 @@ bool	ft_execute_builtin(t_ast_node *root, t_ft_env *ft_env)
 	if (ft_strcmp(root->value, "echo") == 0)
 		g_exit_status = ft_echo(root->args, root->out);
 	else if (ft_strcmp(root->value, "cd") == 0)
-		g_exit_status = ft_cd(root->args, &ft_env->env);
+		g_exit_status = ft_cd(root->args, &ft_env->env, root->out);
 	else if (ft_strcmp(root->value, "pwd") == 0)
 		g_exit_status = ft_pwd(STDOUT_FILENO);
 	// else if (ft_strcmp(root->value, "export") == 0)

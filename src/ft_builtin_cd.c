@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 07:36:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/27 09:01:24 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 21:08:27 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ static int	ft_cd_path(char *path, t_env **env)
  * function for ft_cd).
  *
  * @param env: Environment object
+ * @param fd: File descriptor to write to
  * @return int: 0 if success, 1 on failure
  */
-static int	ft_cd_dash(t_env **env)
+static int	ft_cd_dash(t_env **env, int fd)
 {
 	char	*tmp;
 
@@ -104,7 +105,7 @@ static int	ft_cd_dash(t_env **env)
 	}
 	else
 	{
-		ft_printf("%s\n", tmp);
+		ft_fprintf(fd, "%s\n", tmp);
 		return (ft_cd_path(tmp, env));
 	}
 }
@@ -114,9 +115,10 @@ static int	ft_cd_dash(t_env **env)
  *
  * @param args: Arguments array
  * @param env: Environment object
+ * @param fd: File descriptor to write to
  * @return int: 0 if success, 1 on failure
  */
-int	ft_cd(char **args, t_env **env)
+int	ft_cd(char **args, t_env **env, int fd)
 {
 	int		argc;
 
@@ -127,7 +129,7 @@ int	ft_cd(char **args, t_env **env)
 	}
 	else if (ft_strcmp(args[1], "-") == 0)
 	{
-		return (ft_cd_dash(env));
+		return (ft_cd_dash(env, fd));
 	}
 	else
 	{
