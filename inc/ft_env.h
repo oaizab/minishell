@@ -31,5 +31,6 @@ t_env	*ft_export_init(char **env);
 void	ft_remove_env(t_env **env, char *key);
 t_env	*ft_env_find(t_env *env, char *key);
 bool	ft_validate_identifier(const char *identifier);
+char	**ft_env_to_array(t_env *env);
 
 #endif

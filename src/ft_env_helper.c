@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:40:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/21 10:59:13 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 09:19:41 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,31 @@ t_env	*ft_env_find(t_env *env, char *key)
 		env = env->next;
 	}
 	return (NULL);
+}
+
+char	**ft_env_to_array(t_env *env)
+{
+	char	**env_all;
+	t_env	*tmp;
+	int		i;
+	int		len;
+
+	i = 0;
+	env_all = NULL;
+	tmp = env;
+	len = 0;
+	while (tmp)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	env_all = ft_calloc(len + 1, sizeof(char *));
+	while (env)
+	{
+		env_all[i] = ft_strjoin(env->key, "=");
+		env_all[i] = ft_append_str(env_all[i], env->value);
+		env = env->next;
+		i++;
+	}
+	return (env_all);
 }
