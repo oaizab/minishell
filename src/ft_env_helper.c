@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:40:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 09:19:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 16:43:57 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Initialize new ENV variable list.
+ *
+ * @param env: ENV variables received from main
+ * @return t_env*: New ENV variable list, NULL on failure
+ */
 t_env	*ft_env_init(char **env)
 {
 	t_env	*env_list;
@@ -38,6 +44,12 @@ t_env	*ft_env_init(char **env)
 	return (env_list);
 }
 
+/**
+ * @brief Remove variable entry from ENV variable list.
+ *
+ * @param env: ENV variable list address
+ * @param key: Variable name
+ */
 void	ft_remove_env(t_env **env, char *key)
 {
 	t_env	*tmp;
@@ -65,6 +77,13 @@ void	ft_remove_env(t_env **env, char *key)
 	}
 }
 
+/**
+ * @brief Find variable entry in ENV variable list.
+ *
+ * @param env: ENV variable list address
+ * @param key: Variable name
+ * @return t_env*: Variable entry, NULL on failure
+ */
 t_env	*ft_env_find(t_env *env, char *key)
 {
 	while (env != NULL)
@@ -76,6 +95,13 @@ t_env	*ft_env_find(t_env *env, char *key)
 	return (NULL);
 }
 
+/**
+ * @brief Convert ENV variable list into an array of string in form of
+ * "key=value".
+ *
+ * @param env: ENV variable list
+ * @return char**: Array of string, NULL on failure
+ */
 char	**ft_env_to_array(t_env *env)
 {
 	char	**env_all;

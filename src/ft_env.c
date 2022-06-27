@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 09:27:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 16:40:45 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Create a new ENV variable node.
+ *
+ * @param key: Variable name
+ * @param value: Variable value
+ * @return t_env*: New ENV variable node, NULL on failure
+ */
 t_env	*ft_env_new(char *key, char *value)
 {
 	t_env	*env;
@@ -31,6 +38,11 @@ t_env	*ft_env_new(char *key, char *value)
 	return (env);
 }
 
+/**
+ * @brief Destroy an ENV variable node.
+ *
+ * @param env: ENV variable node address
+ */
 void	ft_env_destroy(t_env *env)
 {
 	if (!env)
@@ -40,6 +52,11 @@ void	ft_env_destroy(t_env *env)
 	free(env);
 }
 
+/**
+ * @brief Clear ENV variable list.
+ *
+ * @param env : ENV variable list address
+ */
 void	ft_env_clear(t_env **env)
 {
 	t_env	*tmp;
@@ -52,6 +69,13 @@ void	ft_env_clear(t_env **env)
 	}
 }
 
+/**
+ * @brief Add or replace an ENV variable.
+ *
+ * @param env: ENV variable list address
+ * @param key: Variable name
+ * @param value: Variable value
+ */
 void	ft_env_add(t_env **env, char *key, char *value)
 {
 	t_env	*new;
@@ -80,6 +104,13 @@ void	ft_env_add(t_env **env, char *key, char *value)
 	}
 }
 
+/**
+ * @brief Get ENV variable value.
+ *
+ * @param env: ENV variable list
+ * @param key: Variable name
+ * @return char*: Variable value, NULL on failure
+ */
 char	*ft_env_get(t_env *env, char *key)
 {
 	static char	*path = "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
