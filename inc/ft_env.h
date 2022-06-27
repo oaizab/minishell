@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/21 11:18:53 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/26 17:45:27 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct s_ft_env
+{
+	t_env	*env;
+	t_env	*export;
+}				t_ft_env;
 
 t_env	*ft_env_new(char *key, char *value);
 void	ft_env_destroy(t_env *env);
