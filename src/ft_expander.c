@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 11:44:17 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/26 14:56:15 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 11:20:59 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ void	ft_expander(t_ast_node *node, t_env *env)
 	if (args == NULL)
 		return ;
 	str = ft_expand_str(node->value, env);
-	if (node->type != NODE_REDIR)
-		ft_expand_asterisk(&str);
+	ft_expand_asterisk(&str);
 	split = ft_split_args(str);
 	free(str);
 	if (!split)
