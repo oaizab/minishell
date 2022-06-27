@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/21 10:46:35 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 09:27:41 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,15 @@ void	ft_env_add(t_env **env, char *key, char *value)
 
 char	*ft_env_get(t_env *env, char *key)
 {
+	static char	*path = "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
+
 	while (env)
 	{
 		if (!ft_strcmp(env->key, key))
 			return (env->value);
 		env = env->next;
 	}
+	if (!ft_strcmp(key, "PATH"))
+		return (path);
 	return (NULL);
 }
