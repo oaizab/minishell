@@ -6,13 +6,11 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 07:36:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/26 18:43:30 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 09:01:24 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	errno;
 
 /**
  * @brief Change current working directory to home directory (Helper function
@@ -72,9 +70,8 @@ static int	ft_cd_path(char *path, t_env **env)
 	}
 	if (chdir(path) == -1)
 	{
-		ft_fprintf(2, "minishell: cd: %s: %s\n", path, strerror(errno));
-		free(oldpwd);
-		return (1);
+		ft_fprintf(STDERR_FILENO, "minishell: cd: %s: ", path);
+		return (perror(NULL), free(oldpwd), 1);
 	}
 	ft_env_add(env, "OLDPWD", oldpwd);
 	pwd = getcwd(NULL, 0);

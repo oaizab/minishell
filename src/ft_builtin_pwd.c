@@ -6,13 +6,11 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 09:24:38 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/26 12:00:02 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 08:47:28 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int errno;
 
 /**
  * @brief Print current working directory.
@@ -26,7 +24,7 @@ int	ft_pwd(int fd)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		ft_fprintf(STDERR_FILENO, "minishell: pwd: %s\n", strerror(errno));
+		perror("minishell: pwd");
 		return (1);
 	}
 	ft_fprintf(fd, "%s\n", cwd);
