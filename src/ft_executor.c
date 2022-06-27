@@ -6,13 +6,27 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:46:53 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 17:07:10 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 18:36:15 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execute_pipeline(t_ast_node *node, t_env *env)
+
+void	ft_execute_commande(t_ast_node *node, t_ft_env *env)
+{
+	if (node->type == NODE_CMD)
+	{
+		ft_execute_cmd(node, env->env);
+	}
+	else if (node->type == NODE_SUBSHELL)
+	{
+		ft_executor(node->left, env);
+		ft_executor(node->right, env);
+	}
+}
+
+void	ft_execute_pipeline(t_ast_node *node, t_ft_env *env_s)
 {
 	t_ast_node	*tmp;
 	int			pipefd[2];
@@ -20,8 +34,8 @@ void	ft_execute_pipeline(t_ast_node *node, t_env *env)
 	tmp = node;
 	if (tmp->type == NODE_PIPE)
 		tmp->left->in = tmp->in;
-	if (node->type == NODE_CMD)
-		ft_execute_cmd(tmp, env);
+	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
+		ft_execute_commande(tmp, env_s);
 	else if (node->type == NODE_PIPE)
 	{
 		if (pipe(pipefd) == -1)
@@ -31,17 +45,39 @@ void	ft_execute_pipeline(t_ast_node *node, t_env *env)
 		}
 		tmp->right->in = pipefd[0];
 		tmp->left->out = pipefd[1];
-		ft_execute_pipeline(tmp->left, env);
+		ft_execute_pipeline(tmp->left, env_s);
 		close(pipefd[1]);
-		ft_execute_pipeline(tmp->right, env);
+		ft_execute_pipeline(tmp->right, env_s);
 		close(pipefd[0]);
 	}
 }
 
-static void	ft_execute(t_ast_node *root, t_env *env, t_env *export)
+void ft_execute_block(t_ast_node *node, t_ft_env *env_s)
 {
-	(void) export;
-	ft_execute_pipeline(root, env);
+	t_ast_node	*tmp;
+
+	tmp = node;
+	if (tmp->type != NODE_AND && tmp->type != NODE_OR)
+		ft_execute_pipeline(tmp, env_s);
+	else if (tmp->type == NODE_AND)
+	{
+		ft_execute_block(tmp->left, env_s);
+		ft_wait();
+		if (g_exit_status == 0)
+			ft_execute_block(tmp->right, env_s);
+	}
+	else if (tmp->type == NODE_OR)
+	{
+		ft_execute_block(tmp->left, env_s);
+		ft_wait();
+		if (g_exit_status != 0)
+			ft_execute_block(tmp->right, env_s);
+	}
+}
+
+static void	ft_execute(t_ast_node *root, t_ft_env *env_s)
+{
+	ft_execute_block(root, env_s);
 }
 
 void	ft_executor(t_ast_node *root, t_ft_env *env_s)
@@ -55,9 +91,5 @@ void	ft_executor(t_ast_node *root, t_ft_env *env_s)
 		return ;
 	if (root->type == NODE_REDIR)
 		return ;
-	ft_execute(root, env, export);
-	if (root->type == NODE_PIPE)
-		return ;
-	ft_executor(root->left, env_s);
-	ft_executor(root->right, env_s);
+	ft_execute(root, env_s);
 }
