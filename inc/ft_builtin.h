@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:33:10 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/26 09:37:43 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 20:40:08 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include "minishell.h"
 
-int	ft_echo(char **args, int fd);
-int	ft_cd(char **args, t_env **env);
-int	ft_pwd(int fd);
+int		ft_echo(char **args, int fd);
+int		ft_cd(char **args, t_env **env, int fd);
+int		ft_pwd(int fd);
+void	ft_export(char **args, t_ft_env *ft_env);
 
 int	ft_count_args(char **args);
 

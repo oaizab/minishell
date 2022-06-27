@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 09:13:42 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/27 20:42:56 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **env)
 	t_ft_env	env_s;
 
 	env_s.env = ft_env_init(env);
+	env_s.export = ft_export_init(env);
 	(void) argc, (void) argv;
 	ft_env_add(&env_s.env, "A", "a   b       c  *");
 	ft_hide_ctrl_c();
