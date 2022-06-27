@@ -6,12 +6,19 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:15:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/22 18:11:58 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/27 16:49:53 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Helper function for ft_export_add.
+ *
+ * @param env: ENV variable list address
+ * @param new: New EXPORT variable node
+ * @param key: Variable name
+ */
 static void	ft_export_add_helper(t_env **env, t_env *new, char *key)
 {
 	t_env	*tmp;
@@ -33,6 +40,13 @@ static void	ft_export_add_helper(t_env **env, t_env *new, char *key)
 	}
 }
 
+/**
+ * @brief Add new variable entry to EXPORT variable list.
+ * 
+ * @param env 
+ * @param key 
+ * @param value 
+ */
 void	ft_export_add(t_env **env, char *key, char *value)
 {
 	t_env	*new;
@@ -58,6 +72,12 @@ void	ft_export_add(t_env **env, char *key, char *value)
 	ft_export_add_helper(env, new, key);
 }
 
+/**
+ * @brief Initialize EXPORT variable list.
+ *
+ * @param env: ENV variable list received from main
+ * @return t_env*: New EXPORT variable list, NULL on failure
+ */
 t_env	*ft_export_init(char **env)
 {
 	t_env	*env_list;
