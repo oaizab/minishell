@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:15:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 16:49:53 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 07:16:28 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,26 @@ static void	ft_export_add_helper(t_env **env, t_env *new, char *key)
 
 /**
  * @brief Add new variable entry to EXPORT variable list.
- * 
- * @param env 
- * @param key 
- * @param value 
+ *
+ * @param env: ENV variable list address
+ * @param key: Variable name
+ * @param value: Variable value
  */
 void	ft_export_add(t_env **env, char *key, char *value)
 {
 	t_env	*new;
 	t_env	*tmp;
 
-	if (!env || !key || !value)
+	if (!env || !key)
 		return ;
 	tmp = ft_env_find(*env, key);
 	if (tmp != NULL)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(value);
+		if (value != NULL)
+			tmp->value = ft_strdup(value);
+		else
+			tmp->value = NULL;
 		return ;
 	}
 	if (strcmp(key, "_") == 0)
@@ -101,5 +104,6 @@ t_env	*ft_export_init(char **env)
 			return (NULL);
 		i++;
 	}
+	ft_export_add(&env_list, "OLDPWD", NULL);
 	return (env_list);
 }

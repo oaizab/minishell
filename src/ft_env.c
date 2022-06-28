@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 16:40:45 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 07:15:37 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,17 @@ t_env	*ft_env_new(char *key, char *value)
 	if (!env)
 		return (NULL);
 	env->key = ft_strdup(key);
-	env->value = ft_strdup(value);
-	if (!env->key || !env->value)
+	if (value != NULL)
+	{
+		env->value = ft_strdup(value);
+		if (env->value == NULL)
+		{
+			return (free(env->key), free(env), NULL);
+		}
+	}
+	else
+		env->value = NULL;
+	if (!env->key)
 	{
 		free(env->key);
 		free(env->value);
