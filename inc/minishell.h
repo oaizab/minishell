@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 10:12:45 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 19:59:29 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 
 extern int	g_exit_status;
 
-char	*ft_read_cmd(void);
+char	*ft_read_cmd(t_env *env);
 
 void	ft_install_signals(void);
 void	ft_uninstall_signals(void);

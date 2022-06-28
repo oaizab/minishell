@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_builtin.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:16:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 16:12:35 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 20:10:24 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	ft_execute_builtin(t_ast_node *root, t_ft_env *env_s)
 	else if (ft_strcmp(root->value, "cd") == 0)
 		g_exit_status = ft_cd(root->args, &env_s->env, root->out);
 	else if (ft_strcmp(root->value, "pwd") == 0)
-		g_exit_status = ft_pwd(root->out);
+		g_exit_status = ft_pwd(root->out, env_s->env);
 	else if (ft_strcmp(root->value, "export") == 0)
 		ft_export(root->args, env_s, root->out);
 	else if (ft_strcmp(root->value, "unset") == 0)

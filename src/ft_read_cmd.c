@@ -6,20 +6,22 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 17:22:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 20:17:34 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_get_prompt(void)
+char	*ft_get_prompt(t_env *env)
 {
 	char	*prompt;
 	char	*path;
 	char	*basename;
 
 	prompt = ft_strdup("\001\e[01;32m\002");
-	path = getcwd(NULL, 0);
+	path = ft_env_get(env, "PWD");
+	if (path == NULL)
+		path = "/[no-dir]";
 	basename = ft_strrchr(path, '/');
 	if (basename)
 		basename++;
@@ -29,7 +31,6 @@ static char	*ft_get_prompt(void)
 		basename = ft_strdup("/");
 	else
 		basename = ft_strdup(basename);
-	free(path);
 	prompt = ft_append_str(prompt, basename);
 	free(basename);
 	prompt = ft_append_str(prompt, "\001\e[00m\002 $ ");
@@ -42,12 +43,12 @@ static char	*ft_get_prompt(void)
  *
  * @return char*: Command string
  */
-char	*ft_read_cmd(void)
+char	*ft_read_cmd(t_env *env)
 {
 	char	*cmd;
 	char	*prompt;
 
-	prompt = ft_get_prompt();
+	prompt = ft_get_prompt(env);
 	cmd = readline(prompt);
 	free(prompt);
 	if (cmd == NULL)
@@ -59,7 +60,7 @@ char	*ft_read_cmd(void)
 	if (ft_strlen(cmd) == 0)
 	{
 		free(cmd);
-		return (ft_read_cmd());
+		return (ft_read_cmd(env));
 	}
 	add_history(cmd);
 	return (cmd);

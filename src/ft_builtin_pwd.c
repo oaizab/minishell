@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_pwd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 09:24:38 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/27 08:47:28 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 20:18:19 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@
  *
  * @return int: 0 if success, 1 on failure
  */
-int	ft_pwd(int fd)
+int	ft_pwd(int fd, t_env *env)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
+	cwd = ft_env_get(env, "PWD");
 	if (cwd == NULL)
 	{
-		perror("minishell: pwd");
-		return (1);
+		cwd = "";
 	}
 	ft_fprintf(fd, "%s\n", cwd);
-	free(cwd);
 	return (0);
 }

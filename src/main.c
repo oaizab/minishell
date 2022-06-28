@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:18:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 15:47:25 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 19:59:43 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 	ft_install_signals();
 	while (1)
 	{
-		cmd = ft_read_cmd();
+		cmd = ft_read_cmd(env_s.env);
 		ast = ft_parser(cmd);
 		if (ast == NULL)
 			continue ;

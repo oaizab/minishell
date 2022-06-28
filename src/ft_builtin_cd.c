@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 07:36:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/27 21:08:27 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 20:17:51 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static int	ft_cd_path(char *path, t_env **env)
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd == NULL)
 	{
-		ft_error(ERR_MALLOC, NULL);
-		return (1);
+		oldpwd = ft_strdup("");
 	}
 	if (chdir(path) == -1)
 	{
