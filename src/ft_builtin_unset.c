@@ -6,12 +6,19 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:20:05 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 09:32:15 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:01:41 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Unset an environment variable.
+ *
+ * @param args: Arguments array
+ * @param ft_env: Environment object
+ * @return int: 0 on success, 1 on failure
+ */
 int	ft_unset(char **args, t_ft_env *ft_env)
 {
 	int	argc;

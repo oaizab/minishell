@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:41:33 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 08:28:43 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:03:11 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ static void	ft_export_print(t_ft_env *ft_env, int fd)
 	g_exit_status = 0;
 }
 
+/**
+ * @brief Add variables to environment, or print environment if no arguments are
+ * specified.
+ *
+ * @param args: Arguments array
+ * @param ft_env: Environment object
+ * @param fd: File descriptor to write to
+ */
 void	ft_export(char **args, t_ft_env *ft_env, int fd)
 {
 	int	argc;

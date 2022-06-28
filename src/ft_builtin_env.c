@@ -6,12 +6,20 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:46:17 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 09:56:13 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:01:05 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Print environment.
+ *
+ * @param args: Arguments array
+ * @param ft_env: Environment object
+ * @param fd: File descriptor to write to
+ * @return int: 0 on success, 1 on failure
+ */
 int	ft_env(char **args, t_ft_env *ft_env, int fd)
 {
 	int		argc;
