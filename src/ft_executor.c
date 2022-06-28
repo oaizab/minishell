@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:46:53 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 14:33:09 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:04:31 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	ft_expand_command(t_ast_node *root, t_env *env);
 
 void	ft_execute_commande(t_ast_node *node, t_ft_env *env)
 {
-	if (node->type == NODE_CMD)
+	if (node->type == NODE_CMD || node->type == NODE_REDIR)
 	{
 		ft_execute_cmd(node, env);
 	}
@@ -46,7 +46,7 @@ void	ft_execute_pipeline(t_ast_node *node, t_ft_env *env_s)
 	tmp = node;
 	if (tmp->type == NODE_PIPE)
 		tmp->left->in = tmp->in;
-	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
+	if (node->type == NODE_REDIR || node->type == NODE_CMD || node->type == NODE_SUBSHELL)
 		ft_execute_commande(tmp, env_s);
 	else if (node->type == NODE_PIPE)
 	{
@@ -104,14 +104,7 @@ static void	ft_execute(t_ast_node *root, t_ft_env *env_s)
 
 void	ft_executor(t_ast_node *root, t_ft_env *env_s)
 {
-	t_env	*env;
-	t_env	*export;
-
-	env = env_s->env;
-	export = env_s->export;
 	if (!root)
-		return ;
-	if (root->type == NODE_REDIR)
 		return ;
 	ft_execute(root, env_s);
 }

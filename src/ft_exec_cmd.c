@@ -105,7 +105,7 @@ void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 {
 	char	**envp;
 
-	if (!ft_expand_command(node, env->env))
+	if (!ft_expand_command(node, env->env) || node->type == NODE_REDIR)
 	{
 		ft_execute_redir(node);
 		if (node->in != STDIN_FILENO)

@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:28:04 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 11:06:21 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:02:12 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ bool	ft_execute_redir(t_ast_node *node)
 	t_ast_node	*tmp;
 
 	tmp = node;
-	while (tmp->left)
+	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
+		tmp = node->left;
+	while (tmp)
 	{
-		tmp = tmp->left;
 		if (tmp->redir_type != REDIR_HEREDOC && tmp->args[1] != NULL)
 			return (false);
 		if (tmp->redir_type == REDIR_IN)
@@ -92,6 +93,7 @@ bool	ft_execute_redir(t_ast_node *node)
 			if (!ft_redir_heredoc(node, tmp->value))
 				return (false);
 		}
+		tmp = tmp->left;
 	}
 	return (true);
 }
