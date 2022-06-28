@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 09:20:05 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 10:01:41 by hhamza           ###   ########.fr       */
+/*   Created: 2022/06/28 16:30:27 by hhamza            #+#    #+#             */
+/*   Updated: 2022/06/28 16:33:29 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 /**
  * @brief Unset an environment variable.
@@ -19,25 +21,31 @@
  * @param ft_env: Environment object
  * @return int: 0 on success, 1 on failure
  */
-int	ft_unset(char **args, t_ft_env *ft_env)
+void	ft_unset(char **args, t_ft_env *ft_env)
 {
 	int	argc;
+	int	i;
 
 	argc = ft_count_args(args);
 	if (argc == 1)
 	{
-		return (0);
+		g_exit_status = 0;
 	}
-	if (ft_validate_identifier(args[1]) == false)
+	i = 1;
+	while (args[i] != NULL)
 	{
-		ft_fprintf(STDERR_FILENO, \
-			"minishell: unset: '%s': not a valid identifier\n", args[1]);
-		return (1);
+		if (ft_validate_identifier(args[i]) == false)
+		{
+			ft_fprintf(STDERR_FILENO, \
+				"minishell: unset: '%s': not a valid identifier\n", args[i]);
+			g_exit_status = 1;
+		}
+		else
+		{
+			ft_remove_env(&ft_env->env, args[i]);
+			ft_remove_env(&ft_env->export, args[i]);
+		}
+		++i;
 	}
-	else
-	{
-		ft_remove_env(&ft_env->env, args[1]);
-		ft_remove_env(&ft_env->export, args[1]);
-		return (0);
-	}
+	g_exit_status = 0;
 }
