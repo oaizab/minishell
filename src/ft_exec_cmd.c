@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 08:22:48 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:40:47 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 		i++;
 	}
 	g_exit_status = 127;
+	ft_free_str_array(where);
 	ft_fprintf(2, "minishell: %s: command not found\n", node->value);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:19:01 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/24 09:34:19 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 08:30:04 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_ast_node	*ft_ast_node_new(t_node_type type, char *value)
 		return (NULL);
 	node->type = type;
 	node->value = value;
+	node->in = STDIN_FILENO;
+	node->out = STDOUT_FILENO;
 	return (node);
 }
 

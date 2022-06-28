@@ -6,12 +6,13 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:46:53 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 20:30:53 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:24:31 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+bool	ft_expand_command(t_ast_node *root, t_env *env);
 
 void	ft_execute_commande(t_ast_node *node, t_ft_env *env)
 {
@@ -21,7 +22,14 @@ void	ft_execute_commande(t_ast_node *node, t_ft_env *env)
 	}
 	else if (node->type == NODE_SUBSHELL)
 	{
-		ft_executor(node->left, env);
+		if (!ft_expand_command(node, env->env))
+		{
+			ft_execute_redir(node);
+			return ;
+		}
+		ft_execute_redir(node);
+		node->right->out = node->out;
+		node->right->in = node->in;
 		ft_executor(node->right, env);
 	}
 }
@@ -57,6 +65,16 @@ void ft_execute_block(t_ast_node *node, t_ft_env *env_s)
 	t_ast_node	*tmp;
 
 	tmp = node;
+	if (tmp->left)
+	{
+		tmp->left->in = tmp->in;
+		tmp->left->out = tmp->out;
+	}
+	if (tmp->right)
+	{
+		tmp->right->in = tmp->in;
+		tmp->right->out = tmp->out;
+	}
 	if (tmp->type != NODE_AND && tmp->type != NODE_OR)
 		ft_execute_pipeline(tmp, env_s);
 	else if (tmp->type == NODE_AND)
