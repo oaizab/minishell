@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 20:33:52 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 08:22:48 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	ft_expand_command(t_ast_node *root, t_env *env)
 		if (root->type == NODE_REDIR && root->args[1] != NULL)
 		{
 			ft_fprintf(2, "minishell: %s: ambiguous redirect\n", tmp);
+			free(tmp);
 			return (false);
 		}
 		free(tmp);
