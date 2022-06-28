@@ -6,44 +6,44 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 15:51:11 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 18:29:17 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_expand_command(t_ast_node *root, t_env *env)
+static int	ft_check_access(t_ast_node *node, char *tmp, \
+	char **where)
 {
-	char	*tmp;
-
-	if (root->type == NODE_CMD || (root->type == NODE_REDIR \
-		&& root->redir_type != REDIR_HEREDOC))
+	if (access(tmp, F_OK) == 0)
 	{
-		tmp = ft_strdup(root->value);
-		ft_expander(root, env);
-		if (root->type == NODE_REDIR && root->args[1] != NULL)
+		free(node->value);
+		free(node->args[0]);
+		ft_free_str_array(where);
+		node->value = tmp;
+		node->args[0] = ft_strdup(node->value);
+		if (access(node->value, X_OK) == 0)
+			return (1);
+		else
 		{
-			ft_fprintf(2, "minishell: %s: ambiguous redirect\n", tmp);
-			free(tmp);
-			return (false);
+			g_exit_status = 126;
+			return (ft_fprintf(2, "minishell: %s: Permission denied\n", \
+				node->value), 0);
 		}
+		return (1);
+	}
+	else
 		free(tmp);
-	}
-	else if (root->type == NODE_REDIR && root->redir_type == REDIR_HEREDOC)
-	{
-		ft_heredoc_expander(root, env);
-	}
-	if (root->left)
-		return (ft_expand_command(root->left, env));
-	return (true);
+	return (2);
 }
 
-bool	ft_find_command(t_ast_node *node, t_env *env)
+static bool	ft_find_command(t_ast_node *node, t_env *env)
 {
 	char	*path;
 	char	**where;
 	char	*tmp;
 	int		i;
+	int		ac;
 
 	path = ft_env_get(env, "PATH");
 	where = ft_split(path, ':');
@@ -55,24 +55,9 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 		else
 			tmp = ft_strdup(where[i]);
 		tmp = ft_append_str(tmp, node->value);
-		if (access(tmp, F_OK) == 0)
-		{
-			free(node->value);
-			free(node->args[0]);
-			ft_free_str_array(where);
-			node->value = tmp;
-			node->args[0] = ft_strdup(node->value);
-			if (access(node->value, X_OK) == 0)
-				return (true);
-			else
-			{
-				g_exit_status = 126;
-				return (ft_fprintf(2, "minishell: %s: Permission denied\n", node->value), false);
-			}
-			return (true);
-		}
-		else
-			free(tmp);
+		ac = ft_check_access(node, tmp, where);
+		if (ac != 2)
+			return (ac);
 		i++;
 	}
 	g_exit_status = 127;
@@ -83,7 +68,7 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 
 void	ft_underscore(t_ast_node *node, t_ft_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (node->args[i + 1])
@@ -91,7 +76,7 @@ void	ft_underscore(t_ast_node *node, t_ft_env *env)
 	ft_env_add(&env->env, "_", node->args[i]);
 }
 
-bool	ft_check_command(t_ast_node *node, t_ft_env *env)
+static bool	ft_check_command(t_ast_node *node, t_ft_env *env)
 {
 	if (ft_is_builtin(node->value))
 		return (false);
@@ -106,7 +91,8 @@ bool	ft_check_command(t_ast_node *node, t_ft_env *env)
 		else
 		{
 			g_exit_status = 126;
-			return (ft_fprintf(2, "minishell: %s: Permission denied\n", node->value), false);
+			return (ft_fprintf(2, "minishell: %s: Permission denied\n", \
+				node->value), false);
 		}
 		return (true);
 	}
@@ -117,8 +103,6 @@ bool	ft_check_command(t_ast_node *node, t_ft_env *env)
 
 void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 {
-	char	**envp;
-
 	if (!ft_expand_command(node, env->env) || node->type == NODE_REDIR)
 	{
 		ft_execute_redir(node);
@@ -129,25 +113,9 @@ void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 		return ;
 	}
 	ft_execute_redir(node);
-
 	ft_signals_ign();
 	if (ft_check_command(node, env))
-	{
-		ft_underscore(node, env);
-		if (fork() == 0)
-		{
-			ft_restore_ctrl_c();
-			envp = ft_env_to_array(env->env);
-			ft_uninstall_signals();
-			dup2(node->in, STDIN_FILENO);
-			dup2(node->out, STDOUT_FILENO);
-			if (node->in != STDIN_FILENO)
-				close(node->in);
-			if (node->out != STDOUT_FILENO)
-				close(node->out);
-			exit(execve(node->value, node->args, envp));
-		}
-	}
+		ft_execute_cmd_fork(node, env);
 	else
 	{
 		ft_underscore(node, env);

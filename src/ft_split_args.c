@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 20:07:56 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/26 20:22:01 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 17:58:05 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,28 +103,27 @@ char	**ft_split_args(char *value)
 {
 	t_state	state;
 	char	**split;
-	int		i;
+	int		i[2];
 	char	*str;
-	int		j;
 
 	state = STATE_DEFAULT;
-	if (ft_split_args_init(&i, &j, &str, &split) == false)
+	if (ft_split_args_init(&i[0], &i[1], &str, &split) == false)
 		return (NULL);
-	while (value[++i])
+	while (value[++i[0]])
 	{
 		if (state == STATE_DEFAULT)
 		{
-			if (value[i] == '\'')
+			if (value[i[0]] == '\'')
 				state = STATE_QUOTE;
-			else if (value[i] == '"')
+			else if (value[i[0]] == '"')
 				state = STATE_DQUOTE;
-			else if (value[i] == ' ')
-				ft_add_word_to_split(split, &j, &str);
+			else if (value[i[0]] == ' ')
+				ft_add_word_to_split(split, &i[1], &str);
 			else
-				str = ft_append_char(str, value[i]);
+				str = ft_append_char(str, value[i[0]]);
 		}
 		else
-			ft_quote_state_helper(&state, value[i], &str);
+			ft_quote_state_helper(&state, value[i[0]], &str);
 	}
-	return (ft_split_args_end(str, split, &j));
+	return (ft_split_args_end(str, split, &i[1]));
 }
