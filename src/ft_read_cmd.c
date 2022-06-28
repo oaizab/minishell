@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/26 12:05:46 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:10:11 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ char	*ft_read_cmd(void)
 	free(prompt);
 	if (cmd == NULL)
 	{
-		ft_exit(EXIT_SUCCESS);
+		ft_restore_ctrl_c();
+		rl_clear_history();
+		exit(EXIT_SUCCESS);
 	}
 	if (ft_strlen(cmd) == 0)
 	{
@@ -60,10 +62,5 @@ char	*ft_read_cmd(void)
 		return (ft_read_cmd());
 	}
 	add_history(cmd);
-	if (strcmp(cmd, "exit") == 0)
-	{
-		free(cmd);
-		ft_exit(EXIT_SUCCESS);
-	}
 	return (cmd);
 }

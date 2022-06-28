@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 15:41:21 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/19 08:31:47 by oaizab           ###   ########.fr       */
+/*   Created: 2022/06/28 10:04:16 by hhamza            #+#    #+#             */
+/*   Updated: 2022/06/28 10:22:45 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,25 @@
 
 int	g_exit_status = 0;
 
-/**
- * @brief Restore Ctrl-C echo, Clear command history, and exit.
- *
- * @param status: Exit status.
- */
-void	ft_exit(int status)
+void	ft_exit(char **args, t_ft_env *ft_env)
 {
+	int	argc;
+	int	status;
+
+	ft_env_destroy(ft_env->env);
+	ft_env_destroy(ft_env->export);
 	ft_restore_ctrl_c();
 	rl_clear_history();
-	exit(status);
+	ft_printf("exit\n");
+	argc = ft_count_args(args);
+	if (argc == 1)
+	{
+		printf("%d\n", g_exit_status);
+		exit(g_exit_status);
+	}
+	else
+	{
+		status = ft_atoi(args[1]);
+		exit(status);
+	}
 }

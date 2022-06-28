@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 14:41:11 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:12:45 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@
  *  * ft_uninstall_signals: Uninstall custom signal handlers.
  *  * ft_hide_ctrl_c: Hide Ctrl+C echo.
  *  * ft_show_ctrl_c: Restore Ctrl+C echo.
- *  * ft_exit: Exit minishell.
  */
 
 extern int	g_exit_status;
@@ -67,8 +66,6 @@ void	ft_wait(void);
 
 void	ft_hide_ctrl_c(void);
 void	ft_restore_ctrl_c(void);
-
-void	ft_exit(int status);
 
 void	ft_free_str_array(char **arr);
 

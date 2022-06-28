@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:16:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 09:56:00 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 10:20:56 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ bool	ft_execute_builtin(t_ast_node *root, t_ft_env *env_s)
 		g_exit_status = ft_unset(root->args, env_s);
 	else if (ft_strcmp(root->value, "env") == 0)
 		g_exit_status = ft_env(root->args, env_s, root->out);
+	else if (ft_strcmp(root->value, "exit") == 0)
+		ft_exit(root->args, env_s);
 	return (true);
 }
