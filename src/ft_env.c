@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 07:15:37 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:26:25 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_env_add(t_env **env, char *key, char *value)
 		tmp = *env;
 		while (tmp->next && ft_strcmp(tmp->key, key) != 0)
 			tmp = tmp->next;
-		if (tmp->next && ft_strcmp(tmp->key, key) == 0)
+		if (ft_strcmp(tmp->key, key) == 0)
 		{
 			free(tmp->value);
 			ft_env_destroy(new);

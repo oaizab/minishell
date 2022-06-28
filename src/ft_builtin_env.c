@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:46:17 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 10:01:05 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 16:06:29 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int	ft_env(char **args, t_ft_env *ft_env, int fd)
 		ft_fprintf(fd, "%s\n", print_env[i]);
 		++i;
 	}
+	ft_free_str_array(print_env);
 	return (0);
 }

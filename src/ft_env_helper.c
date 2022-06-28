@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:40:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 16:43:57 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/28 16:03:26 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_env	*ft_env_init(char **env)
 			return (NULL);
 		i++;
 	}
+	ft_remove_env(&env_list, "OLDPWD");
 	return (env_list);
 }
 
@@ -127,4 +128,33 @@ char	**ft_env_to_array(t_env *env)
 		i++;
 	}
 	return (env_all);
+}
+
+t_ft_env	ft_env_setup(char **envi)
+{
+	t_ft_env	env_setup;
+	t_env		*env;
+	int			lvl;
+	char		*path;
+
+	env_setup.env = ft_env_init(envi);
+	env_setup.export = ft_export_init(envi);
+	env = ft_env_find(env_setup.env, "SHLVL");
+	if (env == NULL)
+		(ft_env_add(&env_setup.env, "SHLVL", "1"), \
+			ft_export_add(&env_setup.export, "SHLVL", "1"));
+	else
+	{
+		lvl = ft_atoi(env->value) + 1;
+		free(env->value);
+		env->value = ft_itoa(lvl);
+		ft_export_add(&env_setup.export, "SHLVL", env->value);
+	}
+	path = getcwd(NULL, 0);
+	ft_export_add(&env_setup.export, "PWD", path);
+	ft_env_add(&env_setup.env, "PWD", path);
+	free(path);
+	if (!ft_env_find(env_setup.env, "_"))
+		ft_env_add(&env_setup.env, "_", "minishell");
+	return (env_setup);
 }

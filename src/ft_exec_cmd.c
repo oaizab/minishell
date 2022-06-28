@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 13:23:41 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:51:11 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 		if (access(tmp, F_OK) == 0)
 		{
 			free(node->value);
+			free(node->args[0]);
 			ft_free_str_array(where);
 			node->value = tmp;
+			node->args[0] = ft_strdup(node->value);
 			if (access(node->value, X_OK) == 0)
 				return (true);
 			else
@@ -79,16 +81,28 @@ bool	ft_find_command(t_ast_node *node, t_env *env)
 	return (false);
 }
 
-bool	ft_check_command(t_ast_node *node, t_env *env)
+void	ft_underscore(t_ast_node *node, t_ft_env *env)
+{
+	int i;
+
+	i = 0;
+	while (node->args[i + 1])
+		i++;
+	ft_env_add(&env->env, "_", node->args[i]);
+}
+
+bool	ft_check_command(t_ast_node *node, t_ft_env *env)
 {
 	if (ft_is_builtin(node->value))
 		return (false);
 	if (node->value[0] != '/' && ft_strncmp(node->value, "./", 2) != 0)
-		return (ft_find_command(node, env));
+		return (ft_find_command(node, env->env));
 	if (access(node->value, F_OK) == 0)
 	{
 		if (access(node->value, X_OK) == 0)
+		{
 			return (true);
+		}
 		else
 		{
 			g_exit_status = 126;
@@ -117,8 +131,9 @@ void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 	ft_execute_redir(node);
 
 	ft_signals_ign();
-	if (ft_check_command(node, env->env))
+	if (ft_check_command(node, env))
 	{
+		ft_underscore(node, env);
 		if (fork() == 0)
 		{
 			ft_restore_ctrl_c();
@@ -135,10 +150,12 @@ void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 	}
 	else
 	{
+		ft_underscore(node, env);
 		ft_execute_builtin(node, env);
 		if (node->in != STDIN_FILENO)
 			close(node->in);
 		if (node->out != STDOUT_FILENO)
 			close(node->out);
+		ft_underscore(node, env);
 	}
 }

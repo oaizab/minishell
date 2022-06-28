@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/26 17:45:27 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:46:58 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ typedef struct s_ft_env
 	t_env	*export;
 }				t_ft_env;
 
-t_env	*ft_env_new(char *key, char *value);
-void	ft_env_destroy(t_env *env);
-void	ft_env_clear(t_env **env);
-void	ft_env_add(t_env **env, char *key, char *value);
-char	*ft_env_get(t_env *env, char *key);
-t_env	*ft_env_init(char **env);
-void	ft_export_add(t_env **env, char *key, char *value);
-t_env	*ft_export_init(char **env);
-void	ft_remove_env(t_env **env, char *key);
-t_env	*ft_env_find(t_env *env, char *key);
-bool	ft_validate_identifier(const char *identifier);
-char	**ft_env_to_array(t_env *env);
+t_env		*ft_env_new(char *key, char *value);
+void		ft_env_destroy(t_env *env);
+void		ft_env_clear(t_env **env);
+void		ft_env_add(t_env **env, char *key, char *value);
+char		*ft_env_get(t_env *env, char *key);
+t_env		*ft_env_init(char **env);
+void		ft_export_add(t_env **env, char *key, char *value);
+t_env		*ft_export_init(char **env);
+void		ft_remove_env(t_env **env, char *key);
+t_env		*ft_env_find(t_env *env, char *key);
+bool		ft_validate_identifier(const char *identifier);
+char		**ft_env_to_array(t_env *env);
+t_ft_env	ft_env_setup(char **envi);
 
 #endif
