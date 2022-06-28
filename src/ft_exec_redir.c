@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:28:04 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/27 14:35:50 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 11:06:21 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@ static void	ft_redir_error(char *name)
 {
 	ft_fprintf(2, "minishell: %s: No such file or directory\n", name);
 	g_exit_status = 1;
+}
+
+bool	ft_redir_heredoc(t_ast_node *node, char *text)
+{
+	int	pipefd[2];
+
+	if (pipe(pipefd) == -1)
+	{
+		ft_fprintf(2, "minishell: pipe: %s\n", strerror(errno));
+		return (false);
+	}
+	node->in = pipefd[0];
+	ft_fprintf(pipefd[1], "%s", text);
+	close(pipefd[1]);
+	return (true);
 }
 
 bool	ft_redir_in(t_ast_node *node, char *filename)
@@ -55,7 +70,7 @@ bool	ft_execute_redir(t_ast_node *node)
 	while (tmp->left)
 	{
 		tmp = tmp->left;
-		if (tmp->args[1] != NULL)
+		if (tmp->redir_type != REDIR_HEREDOC && tmp->args[1] != NULL)
 			return (false);
 		if (tmp->redir_type == REDIR_IN)
 		{
@@ -71,6 +86,11 @@ bool	ft_execute_redir(t_ast_node *node)
 		{
 			if (!ft_redir_out(node, tmp->value, REDIR_APPEND))
 				return (ft_redir_error(tmp->value), false);
+		}
+		else if (tmp->redir_type == REDIR_HEREDOC)
+		{
+			if (!ft_redir_heredoc(node, tmp->value))
+				return (false);
 		}
 	}
 	return (true);
