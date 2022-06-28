@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 10:40:47 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/28 13:23:41 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ void	ft_execute_cmd(t_ast_node *node, t_ft_env *env)
 	if (!ft_expand_command(node, env->env))
 	{
 		ft_execute_redir(node);
+		if (node->in != STDIN_FILENO)
+			close(node->in);
+		if (node->out != STDOUT_FILENO)
+			close(node->out);
 		return ;
 	}
 	ft_execute_redir(node);
