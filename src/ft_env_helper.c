@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:40:43 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 16:03:26 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 20:09:56 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_remove_env(t_env **env, char *key)
 	t_env	*tmp;
 	t_env	*tmp2;
 
-	if (!env || !key)
+	if (!env || !key || !*env)
 		return ;
 	tmp = *env;
 	if (!ft_strcmp(tmp->key, key))

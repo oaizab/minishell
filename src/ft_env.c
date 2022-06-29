@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/29 11:43:22 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 20:09:02 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_env	*ft_env_new(char *key, char *value)
 	}
 	else
 	{
-		free(env);
+		free(env->value);
 		env->value = NULL;
 	}
 	if (!env->key)
@@ -66,6 +66,10 @@ void	ft_env_clear(t_env **env)
 {
 	t_env	*tmp;
 
+	if (env == NULL || *env == NULL)
+	{
+		return ;
+	}
 	while (*env)
 	{
 		tmp = (*env)->next;

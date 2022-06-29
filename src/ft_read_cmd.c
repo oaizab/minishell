@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/29 11:50:09 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 20:39:08 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	*ft_read_cmd(t_ft_env *env_s)
 	if (ft_strlen(cmd) == 0)
 	{
 		free(cmd);
-		free(prompt);
 		return (ft_read_cmd(env_s));
 	}
 	add_history(cmd);

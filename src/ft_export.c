@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:15:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 07:16:28 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/29 21:05:48 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_export_add_helper(t_env **env, t_env *new, char *key)
 
 	if (!*env)
 		*env = new;
-	else if (strcmp(key, (*env)->key) < 0)
+	else if (strcmp(new->key, (*env)->key) < 0)
 	{
 		new->next = (*env);
 		*env = new;
@@ -43,7 +43,7 @@ static void	ft_export_add_helper(t_env **env, t_env *new, char *key)
 /**
  * @brief Add new variable entry to EXPORT variable list.
  *
- * @param env: ENV variable list address
+ * @param env: EXPORT variable list address
  * @param key: Variable name
  * @param value: Variable value
  */
@@ -55,24 +55,21 @@ void	ft_export_add(t_env **env, char *key, char *value)
 	if (!env || !key)
 		return ;
 	tmp = ft_env_find(*env, key);
-	if (tmp != NULL)
+	if (tmp == NULL)
 	{
-		free(tmp->value);
+		new = ft_env_new(key, value);
+		if (new == NULL)
+			return ;
+		ft_export_add_helper(env, new, key);
+	}
+	else
+	{
 		if (value != NULL)
+		{
+			free(tmp->value);
 			tmp->value = ft_strdup(value);
-		else
-			tmp->value = NULL;
-		return ;
+		}
 	}
-	if (strcmp(key, "_") == 0)
-		return ;
-	new = ft_env_new(key, value);
-	if (!new)
-	{
-		ft_env_clear(env);
-		return ;
-	}
-	ft_export_add_helper(env, new, key);
 }
 
 /**
