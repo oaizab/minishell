@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:04:16 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 10:22:45 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/29 11:51:18 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_exit(char **args, t_ft_env *ft_env)
 	int	argc;
 	int	status;
 
-	ft_env_destroy(ft_env->env);
-	ft_env_destroy(ft_env->export);
+	ft_env_clear(&ft_env->env);
+	ft_env_clear(&ft_env->export);
 	ft_restore_ctrl_c();
 	rl_clear_history();
 	ft_printf("exit\n");

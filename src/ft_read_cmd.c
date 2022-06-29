@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/29 10:58:49 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 11:50:09 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,43 +38,35 @@ char	*ft_get_prompt(t_env *env)
 }
 
 /**
- * @brief Print exit when receiving Ctrl-D
- *
- * @param prompt: prompt string
- */
-static void	ft_ctrl_d_exit(char *prompt)
-{
-	int	len;
-
-	len = ft_strlen(prompt);
-	ft_printf("\033[1A\033[%dCexit\n", len - 17);
-	free(prompt);
-}
-
-/**
  * @brief Read command from standard input
  * @note This function exits if Ctrl-D or "exit" is provided as a command
  *
  * @return char*: Command string
  */
-char	*ft_read_cmd(t_env *env)
+char	*ft_read_cmd(t_ft_env *env_s)
 {
 	char	*cmd;
 	char	*prompt;
+	int		prompt_len;
 
-	prompt = ft_get_prompt(env);
+	prompt = ft_get_prompt(env_s->env);
 	cmd = readline(prompt);
+	prompt_len = ft_strlen(prompt);
+	free(prompt);
 	if (cmd == NULL)
 	{
-		ft_ctrl_d_exit(prompt);
+		ft_printf("\033[1A\033[%dCexit\n", prompt_len - 17);
 		ft_restore_ctrl_c();
 		rl_clear_history();
+		ft_env_clear(&env_s->env);
+		ft_env_clear(&env_s->export);
 		exit(g_exit_status);
 	}
 	if (ft_strlen(cmd) == 0)
 	{
 		free(cmd);
-		return (ft_read_cmd(env));
+		free(prompt);
+		return (ft_read_cmd(env_s));
 	}
 	add_history(cmd);
 	return (cmd);

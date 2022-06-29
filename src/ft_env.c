@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 15:26:25 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 11:43:22 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,15 @@ t_env	*ft_env_new(char *key, char *value)
 	{
 		env->value = ft_strdup(value);
 		if (env->value == NULL)
-		{
 			return (free(env->key), free(env), NULL);
-		}
 	}
 	else
-		env->value = NULL;
-	if (!env->key)
 	{
-		free(env->key);
-		free(env->value);
 		free(env);
-		return (NULL);
+		env->value = NULL;
 	}
+	if (!env->key)
+		return (free(env->key), free(env->value), free(env), NULL);
 	return (env);
 }
 

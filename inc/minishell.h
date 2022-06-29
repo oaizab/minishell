@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 19:59:29 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/29 11:27:30 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 
 extern int	g_exit_status;
 
-char	*ft_read_cmd(t_env *env);
+char	*ft_read_cmd(t_ft_env *env_s);
 
 void	ft_install_signals(void);
 void	ft_uninstall_signals(void);
