@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:15:11 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/29 21:05:48 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 16:56:32 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ t_env	*ft_export_init(char **env)
 			return (NULL);
 		i++;
 	}
-	ft_export_add(&env_list, "OLDPWD", NULL);
+	(ft_remove_env(&env_list, "OLDPWD"), ft_export_add(&env_list, "OLDPWD", 0));
 	return (env_list);
 }
