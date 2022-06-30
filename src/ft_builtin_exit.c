@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:04:16 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/29 11:51:18 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 07:12:47 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_exit(char **args, t_ft_env *ft_env)
 	argc = ft_count_args(args);
 	if (argc == 1)
 	{
-		printf("%d\n", g_exit_status);
 		exit(g_exit_status);
 	}
 	else
