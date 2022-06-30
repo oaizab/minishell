@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 18:29:17 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 09:19:45 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static bool	ft_check_command(t_ast_node *node, t_ft_env *env)
 {
 	if (ft_is_builtin(node->value))
 		return (false);
-	if (node->value[0] != '/' && ft_strncmp(node->value, "./", 2) != 0)
+	if (node->value[0] != '/' && ft_strncmp(node->value, "./", 2) != 0 \
+			&& ft_strncmp(node->value, "../", 3) != 0)
 		return (ft_find_command(node, env->env));
 	if (access(node->value, F_OK) == 0)
 	{
