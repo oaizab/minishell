@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/30 10:09:02 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:18:05 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ char	*ft_read_cmd(t_ft_env *env_s)
 {
 	char	*cmd;
 	char	*prompt;
-	int		prompt_len;
 
 	prompt = ft_get_prompt(env_s->env);
 	cmd = readline(prompt);
-	prompt_len = ft_strlen(prompt);
 	if (cmd == NULL)
 	{
 		ft_termcap_exit(env_s, prompt);
