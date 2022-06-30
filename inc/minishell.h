@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:52:59 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/29 11:27:30 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 08:06:04 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <ncurses.h>
+# include <term.h>
 
 # include "libft.h"
 # include "ft_lexer.h"

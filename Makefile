@@ -9,7 +9,7 @@ INC		=	$(shell ls $(IDIR))
 INCLUDE	=	$(addprefix $(IDIR)/,$(INC))
 
 ILIB	=	-I$(shell brew --prefix readline)/include -Ilibft/inc
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft
+SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft -lncurses
 
 NAME	=	minishell
 

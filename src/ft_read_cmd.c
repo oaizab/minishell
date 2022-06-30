@@ -6,7 +6,7 @@
 /*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/29 20:39:08 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 08:56:33 by hhamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,43 @@ char	*ft_get_prompt(t_env *env)
 		basename = ft_strdup(basename);
 	prompt = ft_append_str(prompt, basename);
 	free(basename);
-	prompt = ft_append_str(prompt, "\001\e[00m\002 $ ");
+	prompt = ft_append_str(prompt, " $ \001\e[00m\002");
 	return (prompt);
+}
+
+/**
+ * @brief Putchar function for termcaps
+ *
+ * @param c: character to put
+ * @return int: character put count
+ */
+static int	ft_termcap_putchar(int c)
+{
+	return (write(STDOUT_FILENO, &c, 1));
+}
+
+/**
+ * @brief Print exit using termcaps
+ *
+ * @param env_s: environment object
+ * @param prompt: prompt string
+ */
+static void	ft_termcap_exit(t_ft_env *env_s, char *prompt)
+{
+	char	*term;
+	char	*sr_cap;
+
+	term = ft_env_get(env_s->env, "TERM");
+	if (term == NULL)
+	{
+		ft_printf("exit\n");
+		return ;
+	}
+	tgetent(NULL, term);
+	sr_cap = tgetstr("sr", NULL);
+	tputs(sr_cap, 0, &ft_termcap_putchar);
+	ft_printf("%sexit\n", prompt);
+	free(prompt);
 }
 
 /**
@@ -52,10 +87,9 @@ char	*ft_read_cmd(t_ft_env *env_s)
 	prompt = ft_get_prompt(env_s->env);
 	cmd = readline(prompt);
 	prompt_len = ft_strlen(prompt);
-	free(prompt);
 	if (cmd == NULL)
 	{
-		ft_printf("\033[1A\033[%dCexit\n", prompt_len - 17);
+		ft_termcap_exit(env_s, prompt);
 		ft_restore_ctrl_c();
 		rl_clear_history();
 		ft_env_clear(&env_s->env);
