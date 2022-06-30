@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 09:24:38 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 20:18:19 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:07:49 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_pwd(int fd, t_env *env)
 {
 	char	*cwd;
 
-	cwd = ft_env_get(env, "PWD");
+	cwd = ft_env_get(env, "PWD", false);
 	if (cwd == NULL)
 	{
 		cwd = "";

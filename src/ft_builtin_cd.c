@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 07:36:37 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 20:17:51 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:07:34 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_cd_home(t_env **env)
 	char	*home;
 	char	*oldpwd;
 
-	home = ft_env_get(*env, "HOME");
+	home = ft_env_get(*env, "HOME", false);
 	if (home == NULL)
 		return (ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO), 1);
 	else
@@ -96,7 +96,7 @@ static int	ft_cd_dash(t_env **env, int fd)
 {
 	char	*tmp;
 
-	tmp = ft_env_get(*env, "OLDPWD");
+	tmp = ft_env_get(*env, "OLDPWD", false);
 	if (ft_strcmp(tmp, "") == 0)
 	{
 		ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);

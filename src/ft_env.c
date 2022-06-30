@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:25 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/29 20:09:02 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:04:29 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,12 @@ void	ft_env_add(t_env **env, char *key, char *value)
  * @param key: Variable name
  * @return char*: Variable value, NULL on failure
  */
-char	*ft_env_get(t_env *env, char *key)
+char	*ft_env_get(t_env *env, char *key, bool unset)
 {
 	static char	*path = "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
 
+	if (unset)
+		path = NULL;
 	while (env)
 	{
 		if (!ft_strcmp(env->key, key))

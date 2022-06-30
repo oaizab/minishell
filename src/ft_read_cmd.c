@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 09:29:57 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/30 08:56:33 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:09:02 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_get_prompt(t_env *env)
 	char	*basename;
 
 	prompt = ft_strdup("\001\e[01;32m\002");
-	path = ft_env_get(env, "PWD");
+	path = ft_env_get(env, "PWD", false);
 	if (path == NULL)
 		path = "/[no-dir]";
 	basename = ft_strrchr(path, '/');
@@ -59,7 +59,7 @@ static void	ft_termcap_exit(t_ft_env *env_s, char *prompt)
 	char	*term;
 	char	*sr_cap;
 
-	term = ft_env_get(env_s->env, "TERM");
+	term = ft_env_get(env_s->env, "TERM", false);
 	if (term == NULL)
 	{
 		ft_printf("exit\n");

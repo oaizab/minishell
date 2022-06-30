@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:39:27 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/26 10:03:16 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:08:46 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_var_helper(char **tmp, char *var, t_env *env)
 		*tmp = ft_itoa(g_exit_status);
 	else
 	{
-		*tmp = ft_env_get(env, var);
+		*tmp = ft_env_get(env, var, false);
 		if (*tmp != NULL)
 			*tmp = ft_strdup(*tmp);
 	}

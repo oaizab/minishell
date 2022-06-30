@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_unset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:30:27 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/28 16:33:29 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:08:17 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	ft_unset(char **args, t_ft_env *ft_env)
 			g_exit_status = 1;
 		}
 		else
-		{
-			ft_remove_env(&ft_env->env, args[i]);
-			ft_remove_env(&ft_env->export, args[i]);
-		}
+			(ft_remove_env(&ft_env->env, args[i]),
+				ft_remove_env(&ft_env->export, args[i]));
+		if (ft_strcmp(args[i], "PATH") == 0)
+			ft_env_get(ft_env->env, "PATH", true);
 		++i;
 	}
 	g_exit_status = 0;

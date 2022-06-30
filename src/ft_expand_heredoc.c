@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:34:27 by hhamza            #+#    #+#             */
-/*   Updated: 2022/06/23 18:42:00 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:08:37 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_heredoc_expander_helper(char *var, char **str, int *i, \
 	else
 	{
 		*i += ft_strlen(var);
-		tmp = ft_env_get(env, var);
+		tmp = ft_env_get(env, var, false);
 		if (!tmp)
 			tmp = "";
 		*str = ft_append_str(*str, tmp);

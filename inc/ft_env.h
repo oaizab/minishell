@@ -6,7 +6,7 @@
 /*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 10:03:08 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/28 15:46:58 by oaizab           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:04:43 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_env		*ft_env_new(char *key, char *value);
 void		ft_env_destroy(t_env *env);
 void		ft_env_clear(t_env **env);
 void		ft_env_add(t_env **env, char *key, char *value);
-char		*ft_env_get(t_env *env, char *key);
+char		*ft_env_get(t_env *env, char *key, bool unset);
 t_env		*ft_env_init(char **env);
 void		ft_export_add(t_env **env, char *key, char *value);
 t_env		*ft_export_init(char **env);

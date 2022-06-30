@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamza <hhamza@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oaizab <oaizab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:43:36 by oaizab            #+#    #+#             */
-/*   Updated: 2022/06/30 09:19:45 by hhamza           ###   ########.fr       */
+/*   Updated: 2022/06/30 10:11:14 by oaizab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static bool	ft_find_command(t_ast_node *node, t_env *env)
 	int		i;
 	int		ac;
 
-	path = ft_env_get(env, "PATH");
+	path = ft_env_get(env, "PATH", false);
 	where = ft_split(path, ':');
 	i = 0;
-	while (where[i])
+	while (where != NULL && where[i])
 	{
 		if (where[i][ft_strlen(where[i]) - 1] != '/')
 			tmp = ft_strjoin(where[i], "/");
