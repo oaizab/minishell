@@ -11,6 +11,6 @@
 
 <redir>		::= {("<" | "<<" | ">" | ">>") <filename>}
 
-<arg>		::= token WORD | token VAR | token GROUP
+<arg>		::= token WORD
 
-<filename>	::= token WORD | token VAR | token GROUP
+<filename>	::= token WORD
