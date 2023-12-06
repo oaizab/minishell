@@ -8,8 +8,15 @@ IDIR	=	inc
 INC		=	$(shell ls $(IDIR))
 INCLUDE	=	$(addprefix $(IDIR)/,$(INC))
 
-ILIB	=	-I$(shell brew --prefix readline)/include -Ilibft/inc
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft -lncurses
+ILIB	=	-Ilibft/inc
+SLIB	=	-Llibft/lib -lft -lncurses
+
+ifeq ($(shell uname), Darwin)
+	ILIB	+=	-I$(shell brew --prefix readline)/include
+	SLIB	+=	-L$(shell brew --prefix readline)/lib -lreadline
+else
+	SLIB	+=	-lreadline
+endif
 
 NAME	=	minishell
 
