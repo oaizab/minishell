@@ -1,6 +1,6 @@
 # Minishell
 
-Minishell is a simple Unix shell written in C, designed to provide a basic command-line interface with features inspired by the Bash shell. It is a part of the 42 School curriculum and aims to implement various functionalities commonly found in popular shells.
+Minishell is a Unix shell written in C, designed to provide a basic command-line interface with features inspired by the Bash shell. It is a part of the 42 School curriculum and aims to implement various functionalities commonly found in popular shells.
 
 ## Features
 
